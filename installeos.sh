@@ -10,9 +10,6 @@ yay -Yc --noconfirm
 # Swap shell
 chsh -s $(which zsh)
 
-#zshrc
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 # Neovim
 mkdir -p ~/.config/nvim
 cat > ~/.config/nvim/init.lua <<EOL
