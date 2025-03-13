@@ -2,10 +2,18 @@
 
 sudo pacman -Syy archlinux-keyring
 sudo pacman -Su 
-sudo pacman -S zsh neovim fzf base-devel
+sudo pacman -S --noconfirm zsh neovim fzf base-devel
 
 #yay install
-git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+if ! command -v yay &> /dev/null; then
+    cd "$HOME" || exit
+    git clone https://aur.archlinux.org/yay.git
+    cd yay || exit
+    sudo -u "$USER" makepkg -si --noconfirm
+    cd .. && rm -rf yay
+else
+    echo "yay was already on the system."
+fi
 
 #wsl check
 if grep -qi "microsoft" /proc/version;
