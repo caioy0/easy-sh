@@ -3,12 +3,15 @@
 # System upgrade
 sudo pacman -Syy archlinux-keyring endeavouros-keyring
 sudo pacman -Su 
-sudo pacman -S zsh neovim git
+sudo pacman -S zsh neovim git fzf
 # Install and remove
 yay -S --noconfirm ani-cli linux-zen linux-zen-headers fzf steam timeshift melonds protonup-qt neovim visual-studio-code-bin kitty libreoffice-still brave
 yay -Yc --noconfirm
 # Swap shell
-chsh -s $(which zsh)
+if [[ "$SHELL" != "$(which zsh)" ]]; then
+    echo "Changing default shell to zsh"
+    chsh -s $(which zsh)
+fi
 
 # Neovim
 mkdir -p ~/.config/nvim
@@ -25,4 +28,14 @@ vim.o.mouse = "a"
 -- Packer 
 EOL
 
-echo "script finished. Time to reboot"
+#end
+echo "Finished! Processed with zsh custom install?"
+read -r choice
+
+if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+    echo "Running next script..."
+    zsh /eos-arch/zsh.sh
+else
+    echo "Exiting..."
+    exit 0
+fi

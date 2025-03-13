@@ -5,4 +5,4 @@ sudo apt install curl zsh neovim tasksel
 chsh -s $(which zsh)
 #desktop env
 tasksel
-echo "restart shell"
+echo "Please, restart the shell"

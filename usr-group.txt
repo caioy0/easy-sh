@@ -1,0 +1,11 @@
+for wsl
+To set a different default user than root, append the following to the /etc/wsl.conf file:
+[user]
+default=username
+
+archlinux root:
+passwd
+useradd -m -g users -G wheel username
+passwd username
+
+echo "username ALL=(ALL) ALL" >> /etc/sudoers.d/username
