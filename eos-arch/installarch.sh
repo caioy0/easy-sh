@@ -16,7 +16,7 @@ else
 fi
 
 #wsl check
-if grep -qi "microsoft" /proc/version;
+if grep -qi "microsoft" /proc/version; then
     echo "using wsl"
     sleep 5
     yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
