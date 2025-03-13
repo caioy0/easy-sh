@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo pacman -Syy archlinux-keyring
-sudo pacman -Su 
+sudo pacman -Syy --noconfirm  archlinux-keyring
+sudo pacman -Su --noconfirm 
 sudo pacman -S --noconfirm zsh neovim fzf base-devel
 
 #yay install
@@ -29,10 +29,10 @@ yay -Yc --noconfirm
 #if arch is not using zsh
 if [[ "$SHELL" != "$(which zsh)" ]]; then
     echo "Changing default shell to zsh"
-    chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
 fi
 
-echo "Finished! Processed with zsh custom install (must for wsl)?"
+echo "Finished! Processed with zsh custom install (must for wsl)? Y/n?"
 read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
