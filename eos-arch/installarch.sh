@@ -27,6 +27,10 @@ fi
 yay -Yc --noconfirm
 
 #if arch is not using zsh
+if ! grep -q "$(which zsh)" /etc/shells ; then
+    sudo sh -c "echo $(which zsh) >> /etc/shells"
+fi
+
 if [[ "$SHELL" != "$(which zsh)" ]]; then
     echo "Changing default shell to zsh"
     chsh -s "$(which zsh)"
