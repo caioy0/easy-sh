@@ -1,34 +1,41 @@
 #!/bin/bash
 
-sudo pacman -Syy --noconfirm  archlinux-keyring
-sudo pacman -Su --noconfirm 
+set -e  # stop script
+
+sudo pacman -Syy --noconfirm archlinux-keyring
+sudo pacman -Su --noconfirm
 sudo pacman -S --noconfirm zsh neovim fzf base-devel
 
 # yay install
 if ! command -v yay &> /dev/null; then
-    cd "$HOME" || exit
+    cd "$HOME" || exit 1
     git clone https://aur.archlinux.org/yay.git
-    cd yay || exit
+    cd yay || exit 1
     sudo -u "$USER" makepkg -si --noconfirm
     cd .. && rm -rf yay
 else
-    echo "yay was already on the system."
+    echo "yay já está instalado no sistema."
 fi
 
-# wsl check
+# WSL check
 if grep -qi "microsoft" /proc/version; then
-    echo "Using WSL"
-    read -rp "Which GPU are you using? (0 - AMD, 1 - Intel, 2 - NVIDIA): " gpu
+    echo "Usando WSL"
+    read -r -p "Qual GPU você está usando? (0 - AMD, 1 - Intel, 2 - NVIDIA): " gpu
 
-    if [[ "$gpu" == "0" ]]; then
-        yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
-    elif [[ "$gpu" == "1" ]]; then
-        yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
-    elif [[ "$gpu" == "2" ]]; then
-        yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
-    else 
-        echo "Invalid input. Skipping GPU driver installation."
-    fi
+    case "$gpu" in
+        0)
+            sudo pacman -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
+            ;;
+        1)
+            sudo pacman -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
+            ;;
+        2)
+            sudo pacman -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
+            ;;
+        *)
+            echo "Invalid input. Skipping gpu install."
+            ;;
+    esac
 else
     yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta
 fi

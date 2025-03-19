@@ -16,22 +16,22 @@ Not ready yet.
 
 ## next feat:
 ### auto install:
-hyprland for arch
-hyprland for ubuntu
-hyprland for debian
+hyprland for arch<br>
+hyprland for ubuntu<br>
+hyprland for debian<br>
 
 ### run a simple version of the code:
 thinking a way to just write everything in one .sh
 
 ### basic config arch after install
-for wsl
-To set a different default user than root, append the following to the /etc/wsl.conf file:
-[user]
-default=username
+for wsl<br>
+To set a different default user than root, append the following to the /etc/wsl.conf file:<br>
+[user]<br>
+default=username<br>
 
 archlinux root:
-passwd _setpassword_
-useradd -m -g users -G wheel _username_
-passwd username -setpassword_
+passwd _setpassword_<br>
+useradd -m -g users -G wheel _username_<br>
+passwd username -setpassword_<br>
 
 echo "_username_ ALL=(ALL) ALL" >> /etc/sudoers.d/_username_
