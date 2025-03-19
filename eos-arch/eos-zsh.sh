@@ -25,6 +25,7 @@ if ! grep -q 'export ZSH=' ~/.zshrc; then
     echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
     echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
     echo "alias gotopa ='cd /usr/user/home/git'" >> ~/.zshrc
+    echo "alias c ='clear'" >> ~/.zshrc
 fi
 
 # hyprland install

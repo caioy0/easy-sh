@@ -15,9 +15,19 @@ if [[ "$SHELL" != "$(which zsh)" ]]; then
     chsh -s $(which zsh)
 fi
 
+# wsl
+if grep -qi "microsoft" /proc/version; then
+    echo "Using WSL"
+    sleep 1
+    sudo apt install xrdp
+fi
+
 # desktop env
+prinf "Install oh-my-zsh?"
+read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     zsh ./zsh.sh
 elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
     echo "Exiting..."

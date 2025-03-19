@@ -30,8 +30,8 @@ To set a different default user than root, append the following to the /etc/wsl.
 default=username
 
 archlinux root:
-passwd
-useradd -m -g users -G wheel username
-passwd username
+passwd _setpassword_
+useradd -m -g users -G wheel _username_
+passwd username -setpassword_
 
-echo "username ALL=(ALL) ALL" >> /etc/sudoers.d/username
+echo "_username_ ALL=(ALL) ALL" >> /etc/sudoers.d/_username_

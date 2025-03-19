@@ -39,7 +39,7 @@ EOL
     elif [[ "$choice" == "N" || "$choice" == "n" ]]; then
         printf "No chroot install\n"
         mv ~/Downloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
-        sudo pacman -S --noconfirm qt5-base java17-openjdk
+        sudo pacman -S --noconfirm qt5-multimedia qt5-webengine qt5-svg qt5-networkauth qt5-websockets qt5-script qt5-speech jdk17-openjdk
         sleep 2
         makepkg
         printf "Now build the package using: sudo pacman -U file\n"

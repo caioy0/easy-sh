@@ -2,8 +2,8 @@
 
 #2025-03-15
 
-printf("2025-03-15 arch-linux packet tracer installer.\n")
-printf("Before the install, you need to Donwload the packettracer.deb in Official Cisco web site.\n0-To exit \n1 - Start the build \n2- Download page.\n")
+printf "2025-03-15 arch-linux packet tracer installer.\n"
+printf "Before the install, you need to Donwload the packettracer.deb in Official Cisco web site.\n0-To exit \n1 - Start the build \n2- Download page.\n"
 read -r option
 if [[ "$option" == "1"]]
 
@@ -15,8 +15,8 @@ if [[ "$option" == "1"]]
     #install .deb package
     cd $HOME/packettracer
 
-    printf("CHROOT NOT READY\n")
-    printf("Chroot build?\n Y or n?")
+    printf "CHROOT NOT READY\n"
+    printf "Chroot build?\n Y or n?"
     read -r choice
 
     if [["$choice" == "Y" || "$choice" == "y"]]; then
@@ -29,30 +29,30 @@ if [[ "$option" == "1"]]
 EOL
             fi
             if ! grep "mirrorlist" $CHROOT/root/etc/pacman.d/mirrorlist; then
-                printf("not ready chroot\n")
+                printf "not ready chroot\n"
                 exit 0
             fi
         else
-            printf("not ready chroot\n")
+            printf "not ready chroot\n"
             exit 0
         fi
     elif [["$choice" == "N" || "$choice" == "n"]]
-        printf("no chroot install"\n)
+        printf "no chroot install"\n 
         mv ~/Donwloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
-        sudo pacman -S --noconfirm qt5-base java17-openjdk
+        sudo pacman -S --noconfirm qt5-multimedia qt5-webengine qt5-svg qt5-networkauth qt5-websockets qt5-script qt5-speech jdk17-openjdk
         sleep 2
         makepkg
-        printf("Now build the package using: sudo pacman -U file\n")
+        printf "Now build the package using: sudo pacman -U file\n"
     else
-        printf("Invalid input!\n")
+        printf "Invalid input!\n"
     fi
         
 elif [["$option" == "2"]]
-    printf("You need to login/register at cisco network site, and download the file .deb.\n")
-    printf("Link: https://skillsforall.com/resources/lab-downloads\n")
+    printf "You need to login/register at cisco network site, and download the file .deb.\n"
+    printf "Link: https://skillsforall.com/resources/lab-downloads\n"
 elif [["$option" == "3"]]
-    printf("Goodbye!")
+    printf "Goodbye!"
     exit 0
 else
-    printf("Input not valid\n")
+    printf "Input not valid\n"
 fi
