@@ -16,9 +16,12 @@ if [[ "$SHELL" != "$(which zsh)" ]]; then
 fi
 
 # desktop env
-echo "install desktop env? Y/y or n"
-read choice
-if [[$choice == "Y" || $choice == "y" ]]; then
-    zsh tasksel
+if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+    echo "Running next script..."
+    zsh ./zsh.sh
+elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
+    echo "Exiting..."
+    exit 0
+else
+    echo "Invalid Input."
 fi
-echo "Please, restart the shell"

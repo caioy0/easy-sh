@@ -27,18 +27,20 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.cmd('filetype plugin indent on')
 vim.o.mouse = "a"
-
 -- Packer 
 EOL
 
 #end
-printf("Finished! Processed with zsh custom install?")
+printf("Finished! Processed with zsh/hyprland custom install?")
 read -r choice
 
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
-    zsh /eos-arch/zsh.sh
-else
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    zsh /eos-arch/eos-zsh.sh
+elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
     echo "Exiting..."
     exit 0
+else
+    echo "Invalid Input."
 fi

@@ -1,10 +1,10 @@
 # Custom linux .sh easy install
 
-Easy setup yeah.
-Shell: zsh
-Framework shell: oh-my-zsh link: https://github.com/ohmyzsh/ohmyzsh
-theme: https://github.com/romkatv/powerlevel10k
-hyprland: https://wiki.hyprland.org/Getting-Started/Installation/
+Easy setup yeah.<br>
+Shell: zsh<br>
+Framework shell: oh-my-zsh link: https://github.com/ohmyzsh/ohmyzsh<br>
+theme: https://github.com/romkatv/powerlevel10k<br>
+hyprland: https://wiki.hyprland.org/Getting-Started/Installation/<br>
 
 ## exec script
 chmod +x install.sh.

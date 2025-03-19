@@ -13,9 +13,11 @@ read -r choice
 
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
-    sleep 2
-    zsh ./deb-based/omz.sh
-else
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    zsh /deb-based/zsh.sh
+elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
     echo "Exiting..."
     exit 0
+else
+    echo "Invalid Input."
 fi

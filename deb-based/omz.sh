@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # oh-my-zsh
 
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then 

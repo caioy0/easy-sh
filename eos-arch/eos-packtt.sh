@@ -8,14 +8,15 @@ read -r option
 if [[$option == "1"]]
 
     #Install packettracer
-    if ! cd ~/packettracer; then
-        cd
-        git clone https://aur.archlinux.org/packettracer.git
+    if [[ ! -d "$HOME/packettracer" ]]; then
+        git clone https://aur.archlinux.org/packettracer.git "$HOME/packettracer"
     fi
-    #install .deb package
-    cd ~/packettracer
 
-    printf("Chroot build?"\n Y or n?)
+    #install .deb package
+    cd $HOME/packettracer
+
+    printf("CHROOT NOT READY\n")
+    printf("Chroot build?\n Y or n?")
     read -r choice
 
     if [[$choice == "Y" || $choice == "y"]]; then
@@ -28,22 +29,26 @@ if [[$option == "1"]]
 EOL
             fi
             if ! grep "mirrorlist" $CHROOT/root/etc/pacman.d/mirrorlist; then
-                printf("not ready chroot")
+                printf("not ready chroot\n")
                 exit 0
             fi
         else
-            printf("not ready chroot")
+            printf("not ready chroot\n")
             exit 0
         fi
-    else
+    elif [[$choice == "N" || $choice == "n"]]
         printf("no chroot install"\n)
         mv ~/Donwloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
+        sudo pacman -S --noconfirm qt5-base java17-openjdk
         sleep 2
         makepkg
+        printf("Now build the package using: sudo pacman -U file\n")
+    else
+        printf("Invalid input!\n")
     fi
         
 elif [[$option == "2"]]
-    printf("You need to login/register in cisco network\n")
+    printf("You need to login/register at cisco network site, and download the file .deb.\n")
     printf("Link: https://skillsforall.com/resources/lab-downloads\n")
 elif [[$option == "3"]]
     printf("Goodbye!")

@@ -17,25 +17,25 @@ fi
 
 # wsl check
 if grep -qi "microsoft" /proc/version; then
-    echo "using wsl"
-    read -rp "which gpu are you using? (0 - AMD, 1 - Intel)" gpu
+    echo "Using WSL"
+    read -rp "Which GPU are you using? (0 - AMD, 1 - Intel, 2 - NVIDIA): " gpu
 
-    if [[$gpu == "0"]]; then
+    if [[ "$gpu" == "0" ]]; then
         yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
-    fi
-    if [[$gpu == "1"]]; then
+    elif [[ "$gpu" == "1" ]]; then
         yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
+    elif [[ "$gpu" == "2" ]]; then
+        yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
     else 
         echo "Invalid input. Skipping GPU driver installation."
     fi
-
 else
-    yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty
+    yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta
 fi
 
 yay -Yc --noconfirm
 
-# if arch is not using zsh
+# if zsh have problems
 if ! grep -q "$(which zsh)" /etc/shells ; then
     sudo sh -c "echo $(which zsh) >> /etc/shells"
 fi
@@ -49,7 +49,8 @@ printf "Finished! Processed with zsh custom install (must for wsl)? \n(Y or n?)\
 read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
-    zsh zsh.sh
+    RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    zsh /eos-arch/arch-zsh.sh
 else
     echo "Exiting..."
     exit 0
