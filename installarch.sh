@@ -1,6 +1,4 @@
-#!/bin/bash
-
-set -e  # stop script
+#!/usr/bin/bash
 
 sudo pacman -Syy --noconfirm archlinux-keyring
 sudo pacman -Su --noconfirm
@@ -14,13 +12,13 @@ if ! command -v yay &> /dev/null; then
     sudo -u "$USER" makepkg -si --noconfirm
     cd .. && rm -rf yay
 else
-    echo "yay já está instalado no sistema."
+    echo "yay is already installed."
 fi
 
 # WSL check
 if grep -qi "microsoft" /proc/version; then
-    echo "Usando WSL"
-    read -r -p "Qual GPU você está usando? (0 - AMD, 1 - Intel, 2 - NVIDIA): " gpu
+    echo "Using WSL"
+    read -r -p "GPU install: [0 - AMD, 1 - Intel, 2 - NVIDIA]: " gpu
 
     case "$gpu" in
         0)
@@ -52,7 +50,7 @@ if [[ "$SHELL" != "$(which zsh)" ]]; then
 fi
 
 # oh-my-zsh
-printf "Finished! Processed with zsh custom install (must for wsl)? \n(Y or n?)\n"
+printf "Finished! Processed with zsh custom install (must for wsl)? \n[Y or n?]\n"
 read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."

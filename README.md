@@ -7,8 +7,8 @@ theme: https://github.com/romkatv/powerlevel10k<br>
 hyprland: https://wiki.hyprland.org/Getting-Started/Installation/<br>
 
 ## exec script
-chmod +x install.sh.
-./install.sh.
+chmod +x install.sh.<br>
+./install.sh.<br>
 
 ## wsl 2.0
 <a name = "for wsl 2.0"></a>
@@ -26,6 +26,7 @@ thinking a way to just write everything in one .sh
 ### basic config arch after install
 for wsl<br>
 To set a different default user than root, append the following to the /etc/wsl.conf file:<br>
+
 [user]<br>
 default=username<br>
 
