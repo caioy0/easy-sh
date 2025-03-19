@@ -5,7 +5,7 @@
 printf("2025-03-15 arch-linux packet tracer installer.\n")
 printf("Before the install, you need to Donwload the packettracer.deb in Official Cisco web site.\n0-To exit \n1 - Start the build \n2- Download page.\n")
 read -r option
-if [[$option == "1"]]
+if [[ "$option" == "1"]]
 
     #Install packettracer
     if [[ ! -d "$HOME/packettracer" ]]; then
@@ -19,7 +19,7 @@ if [[$option == "1"]]
     printf("Chroot build?\n Y or n?")
     read -r choice
 
-    if [[$choice == "Y" || $choice == "y"]]; then
+    if [["$choice" == "Y" || "$choice" == "y"]]; then
         if ! cat ~/chroot; then
             mkdir ~/chroot
             CHROOT=$HOME/chroot
@@ -36,7 +36,7 @@ EOL
             printf("not ready chroot\n")
             exit 0
         fi
-    elif [[$choice == "N" || $choice == "n"]]
+    elif [["$choice" == "N" || "$choice" == "n"]]
         printf("no chroot install"\n)
         mv ~/Donwloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
         sudo pacman -S --noconfirm qt5-base java17-openjdk
@@ -47,10 +47,10 @@ EOL
         printf("Invalid input!\n")
     fi
         
-elif [[$option == "2"]]
+elif [["$option" == "2"]]
     printf("You need to login/register at cisco network site, and download the file .deb.\n")
     printf("Link: https://skillsforall.com/resources/lab-downloads\n")
-elif [[$option == "3"]]
+elif [["$option" == "3"]]
     printf("Goodbye!")
     exit 0
 else
