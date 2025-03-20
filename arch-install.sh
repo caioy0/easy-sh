@@ -77,12 +77,15 @@ fi
 cp ~/.zshrc ~/.zshrc.bak  
 echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
 echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
+echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)' >> ~/.zshrc
 echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
 echo "alias c ='clear'" >> ~/.zshrc
-ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/
-ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/
-
+echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >>  ~/.zshrc
+# wsl 2.0 support
+if grep -qi "microsoft" /proc/version; then
+    echo "ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/" >>  ~/.zshrc
+    echo "ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/">>  ~/.zshrc
+fi
 # hyprland install
 printf "Finished! Hyprland install?\n[y or n]?: "
 read -r choice

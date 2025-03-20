@@ -30,21 +30,21 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     
     if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+            "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 
-    # .zshrc
-    cp ~/.zshrc ~/.zshrc.bak  
-    echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
-    echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
-    echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
-    git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+        # .zshrc
+        cp ~/.zshrc ~/.zshrc.bak  
+        echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
+        echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
+        echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)' >> ~/.zshrc
+        echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
+        git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
     fi
 
 elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
-    echo "Exiting..."
+    echo "Finish install!"
     exit 0
 else
     echo "Invalid Input."

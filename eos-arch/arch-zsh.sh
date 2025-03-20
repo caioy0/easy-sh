@@ -20,7 +20,7 @@ if ! grep -q 'export ZSH=' ~/.zshrc; then
     cp ~/.zshrc ~/.zshrc.bak  
     echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
     echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
+    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)' >> ~/.zshrc
     echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
     echo "alias c ='clear'" >> ~/.zshrc
     ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/
