@@ -9,7 +9,7 @@ hyprland: https://wiki.hyprland.org/Getting-Started/Installation/<br>
 ## exec script
 ```dos
 chmod +x install.sh.
-./install.sh.<br>
+./install.sh.
 ```
 
 ## wsl 2.0

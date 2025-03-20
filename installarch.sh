@@ -9,7 +9,7 @@ if ! command -v yay &> /dev/null; then
     cd "$HOME" || exit 1
     git clone https://aur.archlinux.org/yay.git
     cd yay || exit 1
-    sudo -u "$USER" makepkg -si --noconfirm
+    makepkg -si --noconfirm
     cd .. && rm -rf yay
 else
     echo "yay is already installed."
@@ -17,18 +17,18 @@ fi
 
 # wsl check
 if grep -qi "microsoft" /proc/version; then
-    echo "Using WSL"
-    read -r -p "GPU install: [0 - AMD, 1 - Intel, 2 - NVIDIA]: " gpu
+    echo "Using wsl"
+    read -r -p "gpu drivers install: [0 - AMD, 1 - Intel, 2 - NVIDIA]: " gpu
 
     case "$gpu" in
         0)
-            sudo pacman -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
+            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
             ;;
         1)
-            sudo pacman -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
+            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
             ;;
         2)
-            sudo pacman -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
+            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
             ;;
         *)
             echo "Invalid input. Skipping gpu install."
@@ -55,8 +55,45 @@ read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
     RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    zsh /eos-arch/arch-zsh.sh
+
+    # oh-my-zsh pluggins
+    if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
+        git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    fi
+
+    if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]]; then
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+    fi
+
+    # powerlevel10k
+    if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; then
+        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+            "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+    fi
+
+    # .zshrc
+    if ! grep -q 'export ZSH=' ~/.zshrc; then
+        cp ~/.zshrc ~/.zshrc.bak  
+        echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
+        echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
+        echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting)' >> ~/.zshrc
+        echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
+        echo "alias c ='clear'" >> ~/.zshrc
+        ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/
+        ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/
+    fi
+
+    # hyprland install
+    printf "Finished! Hyprland install?\n [y or n]?\n"
+    read -r choice
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+        echo "Running next script..."
+        zsh eos-arch/eos-hyprland.sh
+    else
+        echo "Exiting... please, restart shell"
+        exit 0
+    fi
 else
-    echo "Exiting..."
+    echo "Finish! Exiting..."
     exit 0
 fi
