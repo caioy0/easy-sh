@@ -105,6 +105,8 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
         echo "Finished the install setup!" 
         exit 0
     fi
+elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
+    
 else
     echo "Finished the install setup!"
     exit 0

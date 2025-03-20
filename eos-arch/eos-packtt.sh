@@ -36,7 +36,7 @@ EOL
             printf "not ready chroot\n"
             exit 0
         fi
-    elif [["$choice" == "N" || "$choice" == "n"]]
+    elif [["$choice" == "N" || "$choice" == "n"]]; then
         printf "no chroot install"\n 
         mv ~/Donwloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
         sleep 2
@@ -47,10 +47,10 @@ EOL
         printf "Invalid input!\n"
     fi
         
-elif [["$option" == "2"]]
+elif [["$option" == "2"]]; then
     printf "You need to login/register at cisco network site, and download the file .deb.\n"
     printf "Link: https://skillsforall.com/resources/lab-downloads\n"
-elif [["$option" == "3"]]
+elif [["$option" == "3"]]; then
     printf "Goodbye!"
     exit 0
 else
