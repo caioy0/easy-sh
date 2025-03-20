@@ -18,7 +18,7 @@ fi
 # wsl check
 if grep -qi "microsoft" /proc/version; then
     echo "Using wsl"
-    read -r -p "gpu drivers install: [0 - AMD, 1 - Intel, 2 - NVIDIA]: " gpu
+    read -r -p "gpu drivers install: [1 - AMD, 2 - Intel, 3 - NVIDIA, 0 - Exit]: " gpu
 
     case "$gpu" in
         0)
@@ -31,7 +31,8 @@ if grep -qi "microsoft" /proc/version; then
             yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
             ;;
         *)
-            echo "Invalid input. Skipping gpu install."
+            echo "No gpu install."
+            sleep 1
             ;;
     esac
 else
@@ -81,7 +82,6 @@ echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
 echo "alias c ='clear'" >> ~/.zshrc
 ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/
 ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/
-fi
 
 # hyprland install
 printf "Finished! Hyprland install?\n[y or n]?: "
@@ -95,7 +95,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     #install ml4w
     printf "Do you want to install ml4w?\n[y or n]?: "
     read -r choice
-    if [[$choice == "Y"|| $choice == "y"]]; then
+    if [[ "$choice" == "Y"|| "$choice" == "y"]]; then
         yay -S ml4w-hyprland
         ml4w-hyprland-setup
     else

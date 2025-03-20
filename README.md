@@ -2,14 +2,18 @@
 
 Easy setup yeah.<br>
 Shell: zsh<br>
-Framework shell: oh-my-zsh link: https://github.com/ohmyzsh/ohmyzsh<br>
-theme: https://github.com/romkatv/powerlevel10k<br>
-hyprland: https://wiki.hyprland.org/Getting-Started/Installation/<br>
+Framework shell: [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)<br>
+Theme: [powerlevel10k](https://github.com/romkatv/powerlevel10k)<br>
+[hyprland](https://wiki.hyprland.org/Getting-Started/Installation/)<br>
 
 ## exec script
 ```dos
 chmod +x install.sh.
-./install.sh.
+./arch-install.sh.
+
+-- or
+
+zsh arch-install.sh
 ```
 
 ## wsl 2.0
@@ -21,8 +25,6 @@ Not ready yet.
 hyprland for arch<br>
 hyprland for ubuntu<br>
 hyprland for debian<br>
-
-### run a simple version of the code:
 thinking a way to just write everything in one .sh
 
 ### basic config arch after install
