@@ -15,7 +15,7 @@ else
     echo "yay is already installed."
 fi
 
-# WSL check
+# wsl check
 if grep -qi "microsoft" /proc/version; then
     echo "Using WSL"
     read -r -p "GPU install: [0 - AMD, 1 - Intel, 2 - NVIDIA]: " gpu

@@ -7,8 +7,10 @@ theme: https://github.com/romkatv/powerlevel10k<br>
 hyprland: https://wiki.hyprland.org/Getting-Started/Installation/<br>
 
 ## exec script
-chmod +x install.sh.<br>
+```dos
+chmod +x install.sh.
 ./install.sh.<br>
+```
 
 ## wsl 2.0
 <a name = "for wsl 2.0"></a>
@@ -31,8 +33,9 @@ To set a different default user than root, append the following to the /etc/wsl.
 default=username<br>
 
 archlinux root:
-passwd _setpassword_<br>
-useradd -m -g users -G wheel _username_<br>
-passwd username -setpassword_<br>
-
-echo "_username_ ALL=(ALL) ALL" >> /etc/sudoers.d/_username_
+```dos
+passwd
+useradd -m -g users -G wheel -s /bin/bash [username]
+echo "%wheel ALL=(ALL) ALL" >/etc/sudoers.d/wheel
+passwd [username]
+```

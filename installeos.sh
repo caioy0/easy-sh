@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # System upgrade
 sudo pacman -Syy --noconfirm archlinux-keyring endeavouros-keyring
