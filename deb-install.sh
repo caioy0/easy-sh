@@ -23,7 +23,7 @@ if grep -qi "microsoft" /proc/version; then
 fi
 
 # desktop env
-prinf "Install oh-my-zsh?"
+printf "Install oh-my-zsh? (Y or N)"
 read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     echo "Running next script..."
@@ -39,8 +39,8 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
         echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
         echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)' >> ~/.zshrc
         echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
-        git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
+        #git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH/custom/plugins/zsh-autosuggestions
+        #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH/custom/plugins/zsh-syntax-highlighting
     fi
 
 elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
