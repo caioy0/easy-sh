@@ -9,7 +9,7 @@ make all && sudo make install
 #install ml4w
 echo "Do you want to install ml4w? Y or n"
 read -r choice
-if [ "[$choice" == "Y"|| "$choice" == "y"]]; then
+if [[ "$choice" == "Y"|| "$choice" == "y"]]; then
     yay -S ml4w-hyprland
     ml4w-hyprland-setup
 else

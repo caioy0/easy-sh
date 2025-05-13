@@ -3,7 +3,7 @@
 #2025-03-15
 
 printf "2025-03-15 arch-linux packet tracer installer.\n"
-printf "Before the install, you need to Donwload the packettracer.deb in Official Cisco web site.\n0-To exit \n1 - Start the build \n2- Download page.\n"
+printf "Before the install, you need to Download the packettracer.deb in Official Cisco web site.\n0-To exit \n1 - Start the build \n2- Download page.\n "
 read -r option
 if [[ "$option" == "1"]]
 
@@ -16,7 +16,7 @@ if [[ "$option" == "1"]]
     cd $HOME/packettracer
 
     printf "CHROOT NOT READY\n"
-    printf "Chroot build?\n Y or n?"
+    printf "Chroot build?\n [Y or n]?"
     read -r choice
 
     if [["$choice" == "Y" || "$choice" == "y"]]; then
@@ -38,8 +38,8 @@ EOL
         fi
     elif [["$choice" == "N" || "$choice" == "n"]]; then
         printf "no chroot install"\n 
+        sleep 1
         mv ~/Donwloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
-        sleep 2
         sudo pacman -S --noconfirm qt5-multimedia qt5-webengine qt5-svg qt5-networkauth qt5-websockets qt5-script qt5-speech jdk17-openjdk
         makepkg
         printf "Now build the package using: sudo pacman -U file\n"
@@ -56,3 +56,4 @@ elif [["$option" == "3"]]; then
 else
     printf "Input not valid\n"
 fi
+printf "Finished!\n"

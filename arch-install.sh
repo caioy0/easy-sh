@@ -22,12 +22,17 @@ if grep -qi "microsoft" /proc/version; then
 
     case "$gpu" in
         0)
-            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
+            echo "Exiting..."
+            sleep 1
+            exit 0
             ;;
         1)
-            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
+            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
             ;;
         2)
+            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
+            ;;
+        3)
             yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
             ;;
         *)
@@ -36,10 +41,13 @@ if grep -qi "microsoft" /proc/version; then
             ;;
     esac
 else
-    yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta
+    yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
+        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd
 fi
 
 yay -Yc --noconfirm
+yay -Scc --noconfirm
+sudo pacman -Rns --noconfirm $(pacman -Qdtq)
 
 # if zsh have problems
 if ! grep -q "$(which zsh)" /etc/shells ; then
@@ -73,41 +81,44 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; the
         "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
-# .zshrc
-cp ~/.zshrc ~/.zshrc.bak  
-echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
-echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)' >> ~/.zshrc
-echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
-echo "alias c ='clear'" >> ~/.zshrc
-echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >>  ~/.zshrc
+# .dotfiles
+if [[ ! -d "$HOME/.dotfiles" ]]; then
+    cp -r ./dotfiles $HOME
+    ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
+    ln -sf $HOME/.dotfiles/.p10k.zsh $HOME/.p10k.zsh
+    ln -sf $HOME/.dotfiles/.config $HOME/.config
+    ln -sf $HOME/.dotfiles/.config/kitty $HOME/.config/kitty
+    ln -sf $HOME/.dotfiles/.config/nvim/ $HOME/.config/nvim
+
 # wsl 2.0 support
 if grep -qi "microsoft" /proc/version; then
     echo "ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/" >>  ~/.zshrc
     echo "ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/">>  ~/.zshrc
 fi
+
 # hyprland install
 printf "Finished! Hyprland install?\n[y or n]?: "
 read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    yay -S --noconfirm ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite libxrender libxcursor pixman wayland-protocols cairo pango libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus hyprlang-git hyprcursor-git hyprwayland-scanner-git xcb-util-errors hyprutils-git glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils
+    yay -S --noconfirm ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite libxrender libxcursor \
+    pixman wayland-protocols cairo pango libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus \
+    hyprlang-git hyprcursor-git hyprwayland-scanner-git xcb-util-errors hyprutils-git glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils
+    
     cd $HOME && git clone --recursive https://github.com/hyprwm/Hyprland
     cd Hyprland
     make all && sudo make install
 
     #install ml4w
-    printf "Do you want to install ml4w?\n[y or n]?: "
+    echo "Do you want to install ml4w?\n[y or n]?: "
     read -r choice
     if [[ "$choice" == "Y"|| "$choice" == "y"]]; then
         yay -S ml4w-hyprland
         ml4w-hyprland-setup
     else
-        echo "Finished the install setup!" 
+        echo "Finished the install setup! please restart your shell.\n" 
         exit 0
     fi
-elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
-    
 else
-    echo "Finished the install setup!"
+    echo "Finished the install setup! please restart your shell."
     exit 0
 fi

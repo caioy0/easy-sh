@@ -13,7 +13,7 @@ chmod +x install.sh.
 
 -- or
 
-zsh arch-install.sh
+zsh arch-install.sh || bash arch-install.sh
 ```
 
 ## wsl 2.0
@@ -21,11 +21,12 @@ zsh arch-install.sh
 Not ready yet.
 
 ## next feat:
+macOS files!!
 ### auto install:
-hyprland for arch<br>
 hyprland for ubuntu<br>
 hyprland for debian<br>
 thinking a way to just write everything in one .sh
+dotfiles full feat
 
 ### basic config arch after install
 for wsl<br>

@@ -6,29 +6,18 @@ sudo pacman -Su --noconfirm
 sudo pacman -S --noconfirm zsh fzf
 
 # Install and remove
-yay -S --noconfirm ani-cli linux-zen linux-zen-headers fzf steam timeshift melonds protonup-qt neovim visual-studio-code-bin kitty libreoffice-still
+yay -S --noconfirm ani-cli linux-zen linux-zen-headers fzf steam timeshift melonds protonup-qt neovim visual-studio-code-bin kitty libreoffice-still \
+    fastfetch neofetch ttf-hack-nerd
 yay -Yc --noconfirm
+yay -Scc --noconfirm
+sudo pacman -Rns --noconfirm $(pacman -Qdtq)
 
 # Swap shell
 if [[ "$SHELL" != "$(which zsh)" ]]; then
-    printf("Changing default shell to zsh\n")
+    printf "Changing default shell to zsh\n"
     chsh -s $(which zsh)
     sleep 1
 fi
-
-# Neovim
-mkdir -p ~/.config/nvim
-cat > ~/.config/nvim/init.lua <<EOL
--- Config
-vim.opt.number = true
-vim.opt.syntax = 'enable'
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.cmd('filetype plugin indent on')
-vim.o.mouse = "a"
--- Packer 
-EOL
 
 # oh-my-zsh install
 echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -52,25 +41,35 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; the
         "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
-# .zshrc
-if ! grep -q 'export ZSH=' ~/.zshrc; then
-    cp ~/.zshrc ~/.zshrc.bak  
-    echo 'export ZSH=$HOME/.oh-my-zsh' > ~/.zshrc
-    echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
-    echo 'plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin)' >> ~/.zshrc
-    echo 'source $ZSH/oh-my-zsh.sh' >> ~/.zshrc
-    echo "alias gotopa ='cd /usr/user/home/git'" >> ~/.zshrc
-    echo "alias c ='clear'" >> ~/.zshrc
-fi
+# .dotfiles
+if [[ ! -d "$HOME/.dotfiles" ]]; then
+    cp -r ./dotfiles $HOME
+    ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
+    ln -sf $HOME/.dotfiles/.p10k.zsh $HOME/.p10k.zsh
+    ln -sf $HOME/.dotfiles/.config $HOME/.config
+    ln -sf $HOME/.dotfiles/.config/kitty $HOME/.config/kitty
+    ln -sf $HOME/.dotfiles/.config/nvim $HOME/.config/nvim
 
-printf("Finished! Processed with hyprland install?")
+printf "Finished! Processed with hyprland install?"
 read -r choice
 if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    yay -S --noconfirm ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite libxrender libxcursor pixman wayland-protocols cairo pango libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus hyprlang-git hyprcursor-git hyprwayland-scanner-git xcb-util-errors hyprutils-git glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils
+    yay -S --noconfirm ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes \
+        libx11 libxcomposite libxrender libxcursor pixman wayland-protocols cairo pango libxkbcommon \
+        xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus hyprlang-git hyprcursor-git \
+        hyprwayland-scanner-git xcb-util-errors hyprutils-git glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils 
     git clone --recursive https://github.com/hyprwm/Hyprland
     cd Hyprland
     make all && sudo make install
 
+    printf "ml4w install?"
+    read -r choice
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
+        yay -S ml4w-hyprland
+        ml4w-hyprland-setup
+    else
+        echo "ml4w-hyprland not installed"
+        printf "Please restart your terminal\n"
+    fi
 elif [[ "$choice" == "n" || "$choice" == "N" ]]; then
     echo "Installer finished!"
     exit 0
