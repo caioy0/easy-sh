@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+printf "System Initial Install\n"
 sudo pacman -Syy --noconfirm archlinux-keyring
 sudo pacman -Su --noconfirm
 sudo pacman -S --noconfirm zsh neovim fzf base-devel

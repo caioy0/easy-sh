@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get update && sudo apt-get upgrade
-sudo apt install curl wget zsh neovim tasksel
+sudo apt install curl wget zsh neovim tasksel fzf 
 
 # zsh
 if ! grep -q "/bin/zsh" /etc/shells && ! grep -q "/usr/bin/zsh" /etc/shells; then
@@ -13,13 +13,6 @@ if [[ "$SHELL" != "$(which zsh)" ]]; then
     echo "Changing default shell to zsh"
     sleep 1
     chsh -s $(which zsh)
-fi
-
-# wsl check
-if grep -qi "microsoft" /proc/version; then
-    echo "Using WSL"
-    sleep 1
-    sudo apt install xrdp
 fi
 
 # omz
