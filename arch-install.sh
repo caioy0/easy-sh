@@ -84,7 +84,7 @@ fi
 
 # .dotfiles
 if [[ ! -d "$HOME/.dotfiles" ]]; then
-    cp -r ./dotfiles $HOME
+    cp -r .dotfiles $HOME
     ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
     ln -sf $HOME/.dotfiles/.p10k.zsh $HOME/.p10k.zsh
     ln -sf $HOME/.dotfiles/.config $HOME/.config
