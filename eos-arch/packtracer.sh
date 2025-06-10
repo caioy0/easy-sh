@@ -4,8 +4,9 @@
 
 printf "2025-03-15 arch-linux packet tracer installer.\n"
 printf "Before the install, you need to Download the packettracer.deb in Official Cisco web site.\n0-To exit \n1 - Start the build \n2- Download page.\n "
+printf "3- quick exec script \n"
 read -r option
-if [[ "$option" == "1"]]
+if [[ "$option" == "1" ]]; then
 
     #Install packettracer
     if [[ ! -d "$HOME/packettracer" ]]; then
@@ -50,7 +51,13 @@ EOL
 elif [["$option" == "2"]]; then
     printf "You need to login/register at cisco network site, and download the file .deb.\n"
     printf "Link: https://skillsforall.com/resources/lab-downloads\n"
+
 elif [["$option" == "3"]]; then
+    cd $HOME/packettracer
+    makepkg
+    sudo pacman -U ./Packet_Tracer822_amd64_signed.tar.gz
+
+elif [["$option" == "0"]]; then
     printf "Goodbye!"
     exit 0
 else
