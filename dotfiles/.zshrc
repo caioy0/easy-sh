@@ -18,4 +18,8 @@ source $ZSH/oh-my-zsh.sh
 # alias
 alias c='clear'
 alias ff='fastfetch'
-alias n='neofetch'
+alias nf='neofetch'
+
+# typeset
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
