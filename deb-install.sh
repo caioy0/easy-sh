@@ -40,13 +40,13 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; the
 fi
 
 #dotfiles
-if [[ ! -d "$HOME/.dotfiles" ]]; then
-    cp -r ./dotfiles $HOME
-    ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
-    ln -sf $HOME/.dotfiles/.p10k.zsh $HOME/.p10k.zsh
-    ln -sf $HOME/.dotfiles/.config $HOME/.config
-    ln -sf $HOME/.dotfiles/.config/kitty $HOME/.config/kitty
-    ln -sf $HOME/.dotfiles/.config/nvim $HOME/.config/nvim
+if [[ ! -d "$HOME/dotfiles" ]]; then
+    cp -r dotfiles $HOME
+    ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+    ln -sf $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
+    ln -sf $HOME/dotfiles/.config $HOME/.config
+    ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
+    ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
 fi
 
 echo "Finished! Please restart your terminal"

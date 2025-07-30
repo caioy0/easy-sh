@@ -5,6 +5,7 @@ Shell: zsh<br>
 Framework shell: [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)<br>
 Theme: [powerlevel10k](https://github.com/romkatv/powerlevel10k)<br>
 [hyprland](https://wiki.hyprland.org/Getting-Started/Installation/)<br>
+firefox user.js: brainfucksec<br>
 
 ## exec script
 ```dos
@@ -20,13 +21,14 @@ zsh arch-install.sh || bash arch-install.sh
 <a name = "for wsl 2.0"></a>
 Not ready yet.
 
-## next feat:
-macOS files!!
-### auto install:
-hyprland for ubuntu<br>
-hyprland for debian<br>
+## upcoming feat:
+macOS files!
+hyprland for ubuntu/deb<br>
 thinking a way to just write everything in one .sh
 dotfiles full feat
+
+### new feat:
+Script that donwload aac good quality for my ipod 1 gen ;)
 
 ### basic config arch after install
 for wsl<br>

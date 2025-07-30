@@ -19,7 +19,7 @@ fi
 # wsl check
 if grep -qi "microsoft" /proc/version; then
     echo "Using wsl"
-    read -r -p "gpu drivers install: [1 - AMD, 2 - Intel, 3 - NVIDIA, 0 - Exit]: " gpu
+    read -r -p "gpu drivers install: [1 - AMD, 2 - Intel, 3 - NVIDIA, 0 - no drivers install]: " gpu
 
     case "$gpu" in
         0)
@@ -43,7 +43,7 @@ if grep -qi "microsoft" /proc/version; then
     esac
 else
     yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
-        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd
+        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds \
 fi
 
 yay -Yc --noconfirm
@@ -82,14 +82,14 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; the
         "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
-# .dotfiles
-if [[ ! -d "$HOME/.dotfiles" ]]; then
-    cp -r .dotfiles $HOME
-    ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
-    ln -sf $HOME/.dotfiles/.p10k.zsh $HOME/.p10k.zsh
-    ln -sf $HOME/.dotfiles/.config $HOME/.config
-    ln -sf $HOME/.dotfiles/.config/kitty $HOME/.config/kitty
-    ln -sf $HOME/.dotfiles/.config/nvim/ $HOME/.config/nvim
+# dotfiles
+if [[ ! -d "$HOME/dotfiles" ]]; then
+    cp -r dotfiles $HOME
+    ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+    ln -sf $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
+    ln -sf $HOME/dotfiles/.config $HOME/.config
+    ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
+    ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
 
 # wsl 2.0 support
 if grep -qi "microsoft" /proc/version; then
