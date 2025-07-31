@@ -20,6 +20,9 @@ fi
 
 brew update && brew upgrade
 
+brew install curl grep aria2 ffmpeg git fzf yt-dlp && \
+brew install --cask iina
+
 if [[ ! -d "$HOME/dotfiles" ]]; then
     cp -r dotfiles $HOME
     ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc

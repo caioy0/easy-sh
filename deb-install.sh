@@ -1,7 +1,33 @@
 #!/bin/bash
 
-sudo apt-get update && sudo apt-get upgrade
-sudo apt install curl wget zsh neovim tasksel fzf 
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl wget zsh neovim tasksel fzf gnupg
+
+# fastfetch
+wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch_amd64.deb -O fastfetch.deb
+sudo dpkg -i fastfetch_amd64.deb
+sudo apt -f install -y
+
+# curb manager
+git clone https://github.com/arnarg/curb.git
+cd curb
+cargo install --path .
+sudo apt install cargo
+
+# ani-cli
+git clone "https://github.com/pystardust/ani-cli.git"
+sudo cp ani-cli/ani-cli /usr/local/bin
+rm -rf ani-cli
+
+# kernel and wsl check
+if grep -qi "microsoft" /proc/version; then
+    echo "using wsl"
+else
+    curl 'https://liquorix.net/liquorix-keyring.gpg' | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/liquorix.gpg > /dev/null
+    echo "deb [arch=amd64] http://liquorix.net/debian bookworm main" | sudo tee /etc/apt/sources.list.d/liquorix.list
+    sudo apt update
+    sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+fi
 
 # zsh
 if ! grep -q "/bin/zsh" /etc/shells && ! grep -q "/usr/bin/zsh" /etc/shells; then
@@ -16,21 +42,33 @@ if [[ "$SHELL" != "$(which zsh)" ]]; then
 fi
 
 # omz
-printf "omz install"
-sleep 1
-echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    printf "omz install"
+    sleep 1
+    echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
 # oh-my-zsh plugins
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]]; then
-    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+# zsh-autosuggestions
+if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]]; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+# zsh-syntax-highlighting
+if [[ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-plugin" ]]; then
-    git clone --depth 1 https://github.com/unixorn/fzf-zsh-plugin.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-zsh-plugin
+# fzf-zsh-plugin
+if [[ ! -d "$ZSH_CUSTOM/plugins/fzf-zsh-plugin" ]]; then
+    git clone --depth 1 https://github.com/unixorn/fzf-zsh-plugin.git "$ZSH_CUSTOM/plugins/fzf-zsh-plugin"
+fi
+
+# fast-syntax-highlighting
+if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"]]; then
+	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 fi
 
 # powerlevel10k
@@ -39,7 +77,7 @@ if [[ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]]; the
         "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 fi
 
-#dotfiles
+# dotfiles
 if [[ ! -d "$HOME/dotfiles" ]]; then
     cp -r dotfiles $HOME
     ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
@@ -47,6 +85,7 @@ if [[ ! -d "$HOME/dotfiles" ]]; then
     ln -sf $HOME/dotfiles/.config $HOME/.config
     ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
     ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
+    ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/fastfetch
 fi
 
 echo "Finished! Please restart your terminal"

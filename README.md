@@ -1,11 +1,15 @@
 # Custom linux .sh easy install
 
+License: **GPLv3**
+
 Easy setup yeah.<br>
-Shell: zsh<br>
-Framework shell: [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)<br>
-Theme: [powerlevel10k](https://github.com/romkatv/powerlevel10k)<br>
-[hyprland](https://wiki.hyprland.org/Getting-Started/Installation/)<br>
-firefox user.js: brainfucksec<br>
+- **Shell:** zsh  
+- **Framework shell:** [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)  
+- **Theme:** [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  
+- **Window Manager:** [Hyprland](https://wiki.hyprland.org/Getting-Started/Installation/)  
+- **Anime explorer:** [ani-cli](https://github.com/pystardust/ani-cli)  
+- **Dotfiles base:** [ml4w-dotfiles](https://github.com/mylinuxforwork/dotfiles)  
+- **Firefox user.js:** brainfucksec  
 
 ## exec script
 ```dos
