@@ -8,7 +8,7 @@ wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfet
 sudo dpkg -i fastfetch_amd64.deb
 sudo apt -f install -y
 
-# apt nala
+# nala
 sudo apt install nala
 sudo nala update
 
@@ -105,6 +105,7 @@ fi
 
 # links
 ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/.bashrc $HOME/.bashrc
 ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
 ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
 ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/

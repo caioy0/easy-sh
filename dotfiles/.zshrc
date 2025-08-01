@@ -9,9 +9,12 @@ export EDITOR=nvim
 #ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/
 
 export ZSH=$HOME/.oh-my-zsh
+
+# Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
 # plugins
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf fzf-zsh-plugin fast-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-zsh-plugin fast-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -19,7 +22,7 @@ source $ZSH/oh-my-zsh.sh
 
 # alias
 alias c='clear'
-alias ff='fastfetch'
+alias ff='fastfetch --config examples/25.jsonc'
 alias nf='neofetch'
 alias shutdown='systemctl poweroff'
 alias v='$EDITOR'
@@ -28,6 +31,4 @@ alias reset='systemctl reboot'
 # typeset
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-if [[ $(tty) == *"pts"* ]]; then
-    fastfetch --config ~/.config/fastfetch/config.jsonc
-fi
+fastfetch fastfetch --config examples/13.jsonc

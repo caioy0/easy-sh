@@ -105,13 +105,13 @@ fi
 
 # links
 ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/.bashrc $HOME/.bashrc
 ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
 ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
 ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/
 
 # wsl 2.0 support
 if grep -qi "microsoft" /proc/version; then
-    echo "ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/" >>  ~/.zshrc
     echo "ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/">>  ~/.zshrc
 fi
 
