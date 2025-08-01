@@ -39,7 +39,7 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/fzf-zsh-plugin" ]]; then
 fi
 
 # fast-syntax-highlighting
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"]]; then
+if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
 	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 fi
 
@@ -57,7 +57,6 @@ if [[ ! -d "$HOME/dotfiles" ]]; then
     ln -sf $HOME/dotfiles/.config $HOME/.config
     ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
     ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
-        ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/fastfetch
-
+    ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/fastfetch
 
 echo "Install finished!"

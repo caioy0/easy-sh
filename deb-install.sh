@@ -8,16 +8,30 @@ wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfet
 sudo dpkg -i fastfetch_amd64.deb
 sudo apt -f install -y
 
-# curb manager
-git clone https://github.com/arnarg/curb.git
-cd curb
-cargo install --path .
-sudo apt install cargo
+# apt nala
+sudo apt install nala
+sudo nala update
 
 # ani-cli
 git clone "https://github.com/pystardust/ani-cli.git"
 sudo cp ani-cli/ani-cli /usr/local/bin
 rm -rf ani-cli
+
+# nerd font
+mkdir -p ~/.local/share/fonts
+cd ~/.local/share/fonts
+
+# hack
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+unzip Hack.zip
+rm Hack.zip
+# jetbrains
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+unzip JetBrainsMono.zip
+rm JetBrainsMono.zip
+
+fc-cache -fv
+cd $HOME
 
 # kernel and wsl check
 if grep -qi "microsoft" /proc/version; then
@@ -67,7 +81,7 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/fzf-zsh-plugin" ]]; then
 fi
 
 # fast-syntax-highlighting
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"]]; then
+if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
 	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 fi
 

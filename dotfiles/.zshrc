@@ -23,6 +23,7 @@ alias ff='fastfetch'
 alias nf='neofetch'
 alias shutdown='systemctl poweroff'
 alias v='$EDITOR'
+alias reset='systemctl reboot'
 
 # typeset
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet

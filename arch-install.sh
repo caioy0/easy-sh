@@ -43,7 +43,7 @@ if grep -qi "microsoft" /proc/version; then
     esac
 else
     yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
-        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds \
+        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds nerd-fonts-jetbrains-mono\
 fi
 
 yay -Yc --noconfirm
@@ -82,7 +82,7 @@ if [[ ! -d "$ZSH_CUSTOM/plugins/fzf-zsh-plugin" ]]; then
 fi
 
 # fast-syntax-highlighting
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"]]; then
+if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
 	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
 fi
 
