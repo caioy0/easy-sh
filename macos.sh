@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+# Brew setup
 if command -v brew >/dev/null 2>&1; then
     echo "✅ Homebrew already installed!: $(brew --version | head -n1)"
 else
@@ -18,16 +19,24 @@ echo "🔧 Installing Homebrew!"
   echo "✅ Homebrew installed!"
 fi
 
+# Brew apps
 brew update && brew upgrade
-
 brew install curl grep aria2 ffmpeg git fzf yt-dlp && \
 brew install --cask iina
 
+# dotfiles
 if [[ ! -d "$HOME/dotfiles" ]]; then
-    cp -r dotfiles $HOME
-    ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
-    ln -sf $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
-    ln -sf $HOME/dotfiles/.config $HOME/.config
-    ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
-    ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
+    cp -rf dotfiles $HOME
+else
+    echo "[~] Updating dotfiles..."
+    rsync -avh --delete --exclude='.git' dotfiles/ "$HOME/dotfiles/"
+    if [[ ! -d "$HOME/.config" ]]; then
+        mkdir -p "$HOME/.config"
+    fi
 fi
+
+# links
+ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
+ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
+ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/

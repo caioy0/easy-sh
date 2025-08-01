@@ -36,6 +36,7 @@ cd $HOME
 # kernel and wsl check
 if grep -qi "microsoft" /proc/version; then
     echo "using wsl"
+    sleep 1
 else
     curl 'https://liquorix.net/liquorix-keyring.gpg' | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/liquorix.gpg > /dev/null
     echo "deb [arch=amd64] http://liquorix.net/debian bookworm main" | sudo tee /etc/apt/sources.list.d/liquorix.list
@@ -93,14 +94,20 @@ fi
 
 # dotfiles
 if [[ ! -d "$HOME/dotfiles" ]]; then
-    cp -r dotfiles $HOME
-    ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
-    ln -sf $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
-    ln -sf $HOME/dotfiles/.config $HOME/.config
-    ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
-    ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
-    ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/fastfetch
+    cp -rf dotfiles $HOME
+else
+    echo "[~] Updating dotfiles..."
+    rsync -avh --delete --exclude='.git' dotfiles/ "$HOME/dotfiles/"
+    if [[ ! -d "$HOME/.config" ]]; then
+        mkdir -p "$HOME/.config"
+    fi
 fi
+
+# links
+ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
+ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
+ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/
 
 echo "Finished! Please restart your terminal"
 echo "If you are using WSL, please restart your WSL instance"

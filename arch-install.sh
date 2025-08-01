@@ -94,13 +94,20 @@ fi
 
 # dotfiles
 if [[ ! -d "$HOME/dotfiles" ]]; then
-    cp -r dotfiles $HOME
-    ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
-    ln -sf $HOME/dotfiles/.p10k.zsh $HOME/.p10k.zsh
-    ln -sf $HOME/dotfiles/.config $HOME/.config
-    ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/kitty
-    ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/nvim
-    ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/fastfetch
+    cp -rf dotfiles $HOME
+else
+    echo "[~] Updating dotfiles..."
+    rsync -avh --delete --exclude='.git' dotfiles/ "$HOME/dotfiles/"
+    if [[ ! -d "$HOME/.config" ]]; then
+        mkdir -p "$HOME/.config"
+    fi
+fi
+
+# links
+ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
+ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
+ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/
 
 # wsl 2.0 support
 if grep -qi "microsoft" /proc/version; then
