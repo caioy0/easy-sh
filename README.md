@@ -1,8 +1,9 @@
-# Custom linux .sh easy install
+## Custom cli to install my personal cfg and tools!
+Easy setup yeah.<br>
 
 License: **GPLv3**
 
-Easy setup yeah.<br>
+### Dependecies and tools
 - **Shell:** [zsh] (https://github.com/zsh-users/zsh)
 - **Framework shell:** [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)  
 - **Theme:** [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  
@@ -17,13 +18,12 @@ Easy setup yeah.<br>
 - **Browser (Arch):** brave browser  
 - **Firefox user.js:** brainfucksec  
 
-## advices
-usage of zsh is recomended -> zsh script.sh 
+## usage and advices
+-> zsh easy-sh [options]
+-> to list all the options use
+zsh easy-sh -h or --help
 
-### install.sh
-My new script is her
-
-## exec script
+## exec my custom scripts
 ```dos
 chmod +x install.sh.
 ./arch-install.sh.
@@ -33,14 +33,10 @@ chmod +x install.sh.
 zsh arch-install.sh || bash arch-install.sh
 ```
 
-## wsl 2.0
-<a name = "for wsl 2.0"></a>
-Not ready yet.
-
 ## upcoming feat:
 macOS files!
 hyprland for ubuntu/deb<br>
-thinking a way to improve install.sh
+thinking a way to improve easy-sh
 dotfiles full feat
 
 ### new feat:

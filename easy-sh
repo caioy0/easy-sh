@@ -2,6 +2,8 @@
 
 distro=""
 driver=""
+skip_custominstall=false
+skip_dotfiles=false
 
 install_omz() {
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
@@ -59,7 +61,7 @@ backup_file() {
 show_help() {
     echo "Usage: ./install.sh [options]"
     echo "Options:"
-    echo "  --debian | --arch | --fedora       distro option"
+    echo " --debian|--arch|--fedora|--macos    distro option"
     echo "  --amd | --nvidia | --intel         drivers install"
     echo "  --wsl                              WSL support"
     echo "  --only-dotfiles                    copy dotfiles"
@@ -86,7 +88,7 @@ while [ $# -gt 0 ]; do
         ;;
         -n | --nvidia)
             echo "feature not ready"
-            driver="nvidia" 
+            driver="nvidia"
         ;;
         -i | --intel)
             echo "feature not ready"
@@ -94,31 +96,47 @@ while [ $# -gt 0 ]; do
         ;;
         -w | --wsl)
             echo "feature not ready" 
+            exit 0
         ;;
         -d | --debian)
             distro="debian"
+            printf "os: $distro\n"
+            sleep 1
             bash ./deb-base/apps.sh
             shift
         ;;
         -a | --arch)
             distro="arch"
+            printf "os: $distro\n"
+            sleep 1
             bash ./arch-base/apps.sh
         ;;
         -f | --fedora)
             distro="fedora"
+            printf "os: $distro\n"
+            sleep 1
             bash ./fed-base/apps.sh
         ;;
         -m | --macos)
             distro="macos"
+            printf "os: $distro\n"
+            sleep 1
             bash ./macos-darwin/apps.sh
         ;;
         -b | --only-dotfiles)
+            distro="no-distro"
             echo "feature not ready"
+        ;;
+        --skip-dotfiles)
+            skip_dotfiles=true
+        ;;
+        --skip-custominstall)
+            skip_custominstall=true
         ;;
         --help | -h)
             show_help
             exit 0
-            ;;
+        ;;
     *)
         echo "unknown arg(s): $1"
         exit 1
@@ -127,29 +145,34 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-if [ -z "$distro" ]; then
+if [ -z "$distro" ] && [ "$skip_custominstall" = false ]; then
     echo "Error: must choose a distro option --arch, --debian or --fedora"
     echo "Use --help to see all the options."
     exit 1
 fi
 
-if [ "$driver" = "amd" ]; then
-    case "$distro" in
-        debian)
-            sudo apt-get install -y firmware-amd-graphics libgl1-mesa-dri libglx-mesa0 mesa-vulkan-drivers xserver-xorg-video-all
+# driver install 
+if [ -n "$driver" ]; then
+    echo "Installing driver: $driver"
+    sleep 1
+    case "$driver" in
+        amd)
+            bash ./drivers/install-amd.sh "$distro"
             ;;
-        arch)
-            yay --no-confirm vulkan-radeon mesa 
+        nvidia)
+            echo "Intel support coming soon"
+            #bash ./drivers/install-nvidia.sh "$distro"
             ;;
-        fedora)
-            sudo dnf remove nvidia* xorg-x11-drv-nvidia* 
-            sudo dnf install mesa-dri-drivers mesa-libGL mesa-vulkan-drivers   
-            ;;
-        *)
-            echo "Error: distro not especified"
-            exit 1
+        intel)
+            #bash ./drivers/install-intel.sh "$distro"
+            echo "Intel support coming soon"
             ;;
     esac
+fi
+
+if [ "$skip_dotfile" = true ]; then
+    printf "\nThats it ༼ つ ◕_◕ ༽つ \n"
+    exit 0
 fi
 
 # oh-my-zsh install
@@ -158,6 +181,8 @@ install_zsh_plugins
 
 # backup .zshrc
 backup_file "$HOME/.zshrc" "$HOME/.zshrc.bak"
+# backup .bashrz
+backup_file "$HOME/.bashrc" "$HOME/.config.bashrc"
 # backup .config
 backup_file "$HOME/.config" "$HOME/.config.bak"
 

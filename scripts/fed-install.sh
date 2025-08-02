@@ -58,10 +58,10 @@ fi
 
 # dotfiles
 if [[ ! -d "$HOME/dotfiles" ]]; then
-    cp -rf dotfiles $HOME
+    cp -rf ../dotfiles/ $HOME
 else
     echo "[~] Updating dotfiles..."
-    rsync -avh --delete --exclude='.git' dotfiles/ "$HOME/dotfiles/"
+    cp -rf ../dotfiles/ $HOME
     if [[ ! -d "$HOME/.config" ]]; then
         mkdir -p "$HOME/.config"
     fi

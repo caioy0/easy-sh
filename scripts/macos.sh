@@ -84,11 +84,11 @@ fi
 
 # dotfiles
 if [[ ! -d "$HOME/dotfiles" ]]; then
-    cp -rf dotfiles $HOME
+    cp -rf ../dotfiles/ $HOME
 else
     echo "[~] Updating dotfiles..."
     sleep 1
-   cp -rf dotfiles/ $HOME
+   cp -rf ../dotfiles/ $HOME
     if [[ ! -d "$HOME/.config" ]]; then
         mkdir -p "$HOME/.config"
     fi
