@@ -12,11 +12,16 @@ Easy setup yeah.<br>
 - **Video cli:** [yt-dlp](https://github.com/yt-dlp/yt-dlp)  
 - **Audio+Video tool cli:** [FFmpeg](https://github.com/FFmpeg/FFmpeg)  
 - **System info cli:** [fastfetch](https://github.com/fastfetch-cli/fastfetch)  
+- **AUR helper:** [yay](https://github.com/Jguer/yay)  
+- **Apt alt:** [nala](https://github.com/volitank/nala)  
 - **Browser (Arch):** brave browser  
 - **Firefox user.js:** brainfucksec  
 
 ## advices
 usage of zsh is recomended -> zsh script.sh 
+
+### install.sh
+My new script is her
 
 ## exec script
 ```dos
@@ -35,7 +40,7 @@ Not ready yet.
 ## upcoming feat:
 macOS files!
 hyprland for ubuntu/deb<br>
-thinking a way to just write everything in one .sh
+thinking a way to improve install.sh
 dotfiles full feat
 
 ### new feat:

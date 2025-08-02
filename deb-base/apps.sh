@@ -4,8 +4,8 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget zsh neovim tasksel fzf gnupg
 
 # fastfetch
-wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch_amd64.deb -O fastfetch.deb
-sudo dpkg -i fastfetch_amd64.deb
+wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O fastfetch.deb
+sudo dpkg -i fastfetch.deb
 sudo apt -f install -y
 
 # nala
