@@ -3,13 +3,20 @@
 License: **GPLv3**
 
 Easy setup yeah.<br>
-- **Shell:** zsh  
+- **Shell:** [zsh] (https://github.com/zsh-users/zsh)
 - **Framework shell:** [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)  
 - **Theme:** [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  
 - **Window Manager:** [Hyprland](https://wiki.hyprland.org/Getting-Started/Installation/)  
 - **Anime explorer:** [ani-cli](https://github.com/pystardust/ani-cli)  
-- **Dotfiles base:** [ml4w-dotfiles](https://github.com/mylinuxforwork/dotfiles)  
+- **Dotfiles base:** [ml4w-dotfiles](https://github.com/mylinuxforwork/dotfiles)
+- **Video cli:** [yt-dlp](https://github.com/yt-dlp/yt-dlp)  
+- **Audio+Video tool cli:** [FFmpeg](https://github.com/FFmpeg/FFmpeg)  
+- **System info cli:** [fastfetch](https://github.com/fastfetch-cli/fastfetch)  
+- **Browser (Arch):** brave browser  
 - **Firefox user.js:** brainfucksec  
+
+## advices
+usage of zsh is recomended -> zsh script.sh 
 
 ## exec script
 ```dos

@@ -46,6 +46,8 @@ else
         visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds nerd-fonts-jetbrains-mono\
 fi
 
+# brave browser
+curl -fsS https://dl.brave.com/install.sh | sh
 yay -Yc --noconfirm
 yay -Scc --noconfirm
 sudo pacman -Rns --noconfirm $(pacman -Qdtq)
@@ -61,7 +63,11 @@ if [[ "$SHELL" != "$(which zsh)" ]]; then
 fi
 
 # oh-my-zsh install
-echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    printf "omz install"
+    sleep 1
+    echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
 # oh-my-zsh pluggins
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
@@ -83,7 +89,7 @@ fi
 
 # fast-syntax-highlighting
 if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
-	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "$ZSH_CUSTOM/plugins/fzf-zsh-plugin"
 fi
 
 # powerlevel10k

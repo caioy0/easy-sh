@@ -1,0 +1,174 @@
+#!/bin/bash
+
+distro=""
+driver=""
+
+install_omz() {
+    if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+        printf "[~] Installing Oh My Zsh...\n"
+        echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    fi
+}
+
+install_zsh_plugins() {
+    # path
+    ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+    clone_if_not_exists "https://github.com/zsh-users/zsh-autosuggestions" "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+    clone_if_not_exists "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+    clone_if_not_exists "https://github.com/unixorn/fzf-zsh-plugin.git" "$ZSH_CUSTOM/plugins/fzf-zsh-plugin"
+    clone_if_not_exists "https://github.com/zdharma-continuum/fast-syntax-highlighting.git" "$ZSH_CUSTOM/plugins/fast-syntax-highlighting"
+    clone_if_not_exists "https://github.com/romkatv/powerlevel10k.git" "$ZSH_CUSTOM/themes/powerlevel10k"
+}
+
+clone_if_not_exists() {
+    local repo=$1
+    local target=$2
+    if [[ ! -d "$target" ]]; then
+        git clone --depth=1 "$repo" "$target"
+    else
+        echo "[~] Already exists: $target"
+    fi
+}
+
+safe_link() {
+    local src=$1
+    local dest=$2
+
+    if [[ -e "$src" ]]; then
+        ln -sf "$src" "$dest"
+        echo "[✓] Link created: $dest → $src"
+    else
+        echo "[!] Warning!: File not found to create link: $src"
+    fi
+}
+
+backup_file() {
+    local target=$1
+    local backup=$2
+
+    if [[ -e "$target" ]]; then
+        printf "Backup %s? [y/n]: " "$target"
+        read -r answer
+        if [[ "$answer" =~ ^[Yy]$ ]]; then
+            cp -r "$target" "$backup"
+            echo "[✓] Backup ready: $backup"
+        fi
+    fi
+}
+
+show_help() {
+    echo "Usage: ./install.sh [options]"
+    echo "Options:"
+    echo "  --debian | --arch | --fedora       distro option"
+    echo "  --amd | --nvidia | --intel         drivers install"
+    echo "  --wsl                              WSL support"
+    echo "  --only-dotfiles                    copy dotfiles"
+    printf "  --arch | --debian | --fedora   (mandatory)\n"
+    printf "  --amd  | --nvidia | --intel    (optional)\n"
+}
+
+copy_dotfiles(){
+    if [[ ! -d "$HOME/dotfiles" ]]; then
+    cp -rf "dotfiles/" "$HOME"
+else
+    echo "[~] Updating dotfiles..."
+    sleep 1
+    cp -rf "dotfiles/" "$HOME"
+    if [[ ! -d "$HOME/.config" ]]; then
+        mkdir -p "$HOME/.config"
+    fi
+fi
+}
+
+while [ $# -gt 0 ]; do
+    case "$1" in -g | --amd)
+            driver="amd"
+        ;;
+        -n | --nvidia)
+            echo "feature not ready"
+            driver="nvidia" 
+        ;;
+        -i | --intel)
+            echo "feature not ready"
+            driver="intel" 
+        ;;
+        -w | --wsl)
+            echo "feature not ready" 
+        ;;
+        -d | --debian)
+            distro="debian"
+            bash ./deb-base/apps.sh
+            shift
+        ;;
+        -a | --arch)
+            distro="arch"
+            bash ./arch-base/apps.sh
+        ;;
+        -f | --fedora)
+            distro="fedora"
+            bash ./fed-base/apps.sh
+        ;;
+        -m | --macos)
+            distro="macos"
+            bash ./macos-darwin/apps.sh
+        ;;
+        -b | --only-dotfiles)
+            echo "feature not ready"
+        ;;
+        --help | -h)
+            show_help
+            exit 0
+            ;;
+    *)
+        echo "unknown arg(s): $1"
+        exit 1
+        ;;
+    esac
+    shift
+done
+
+if [ -z "$distro" ]; then
+    echo "Error: must choose a distro option --arch, --debian or --fedora"
+    echo "Use --help to see all the options."
+    exit 1
+fi
+
+if [ "$driver" = "amd" ]; then
+    case "$distro" in
+        debian)
+            sudo apt-get install -y firmware-amd-graphics libgl1-mesa-dri libglx-mesa0 mesa-vulkan-drivers xserver-xorg-video-all
+            ;;
+        arch)
+            yay --no-confirm vulkan-radeon mesa 
+            ;;
+        fedora)
+            sudo dnf remove nvidia* xorg-x11-drv-nvidia* 
+            sudo dnf install mesa-dri-drivers mesa-libGL mesa-vulkan-drivers   
+            ;;
+        *)
+            echo "Error: distro not especified"
+            exit 1
+            ;;
+    esac
+fi
+
+# oh-my-zsh install
+install_omz
+install_zsh_plugins
+
+# backup .zshrc
+backup_file "$HOME/.zshrc" "$HOME/.zshrc.bak"
+# backup .config
+backup_file "$HOME/.config" "$HOME/.config.bak"
+
+# dotfiles
+copy_dotfiles
+
+# links
+safe_link "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
+safe_link "$HOME/dotfiles/.bashrc" "$HOME/.bashrc"
+safe_link "$HOME/dotfiles/.config/kitty" "$HOME/.config/kitty"
+safe_link "$HOME/dotfiles/.config/nvim/" "$HOME/.config/nvim"
+safe_link "$HOME/dotfiles/.config/fastfetch/" "$HOME/.config/fastfetch"
+
+printf "\nThats it ༼ つ ◕_◕ ༽つ \n"
