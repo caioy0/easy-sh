@@ -3,7 +3,7 @@
 printf "System Initial Install\n"
 sudo pacman -Syy --noconfirm archlinux-keyring
 sudo pacman -Su --noconfirm
-sudo pacman -S --noconfirm zsh neovim fzf base-devel
+sudo pacman -S --noconfirm zsh neovim fzf base-devel kitty yt-dlp yazi btop
 
 # yay install
 if ! command -v yay &> /dev/null; then

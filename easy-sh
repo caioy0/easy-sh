@@ -61,12 +61,21 @@ backup_file() {
 show_help() {
     echo "Usage: ./install.sh [options]"
     echo "Options:"
-    echo " --debian|--arch|--fedora|--macos    distro option"
-    echo "  --amd | --nvidia | --intel         drivers install"
+    echo "distro option"
+    echo " -d | --debian"
+    echo " -a | --arch"
+    echo " -f | --fedora"
+    echo " -m | --macos"
+    echo ""
+    echo " drivers install"
+    echo "  --amd"
+    echo "  --nvidia"
+    echo "  --intel"
+    echo ""
     echo "  --wsl                              WSL support"
-    echo "  --only-dotfiles                    copy dotfiles"
-    printf "  --arch | --debian | --fedora   (mandatory)\n"
-    printf "  --amd  | --nvidia | --intel    (optional)\n"
+    echo "  -b | --only-dotfiles               copy dotfiles"
+    echo "  --skip-custominstall"
+    echo "  --skip-dotfiles"
 }
 
 copy_dotfiles(){
@@ -168,6 +177,7 @@ if [ -n "$driver" ]; then
             echo "Intel support coming soon"
             ;;
     esac
+    exit 0
 fi
 
 if [ "$skip_dotfile" = true ]; then
