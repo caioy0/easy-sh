@@ -5,6 +5,7 @@ yay -S ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixe
   libliftoff libdisplay-info cpio tomlplusplus hyprlang-git hyprcursor-git hyprwayland-scanner-git xcb-util-errors hyprutils-git \
   glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils
 
+cd $HOME
 git clone --recursive https://github.com/hyprwm/Hyprland
 cd Hyprland
 make all && sudo make install

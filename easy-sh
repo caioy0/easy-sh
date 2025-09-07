@@ -67,11 +67,6 @@ show_help() {
     echo " -f | --fedora"
     echo " -m | --macos"
     echo ""
-    echo " drivers install"
-    echo "  --amd"
-    echo "  --nvidia"
-    echo "  --intel"
-    echo ""
     echo "  --wsl                              WSL support"
     echo "  -b | --only-dotfiles               copy dotfiles"
     echo "  --skip-custominstall"
@@ -92,17 +87,7 @@ fi
 }
 
 while [ $# -gt 0 ]; do
-    case "$1" in -g | --amd)
-            driver="amd"
-        ;;
-        -n | --nvidia)
-            echo "feature not ready"
-            driver="nvidia"
-        ;;
-        -i | --intel)
-            echo "feature not ready"
-            driver="intel" 
-        ;;
+    case "$1" in 
         -w | --wsl)
             echo "feature not ready" 
             exit 0
@@ -154,32 +139,6 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-if [ -z "$distro" ] && [ "$skip_custominstall" = false ]; then
-    echo "Error: must choose a distro option --arch, --debian or --fedora"
-    echo "Use --help to see all the options."
-    exit 1
-fi
-
-# driver install 
-if [ -n "$driver" ]; then
-    echo "Installing driver: $driver"
-    sleep 1
-    case "$driver" in
-        amd)
-            bash ./drivers/install-amd.sh "$distro"
-            ;;
-        nvidia)
-            echo "Intel support coming soon"
-            #bash ./drivers/install-nvidia.sh "$distro"
-            ;;
-        intel)
-            #bash ./drivers/install-intel.sh "$distro"
-            echo "Intel support coming soon"
-            ;;
-    esac
-    exit 0
-fi
-
 if [ "$skip_dotfile" = true ]; then
     printf "\nThats it ༼ つ ◕_◕ ༽つ \n"
     exit 0
@@ -205,5 +164,10 @@ safe_link "$HOME/dotfiles/.bashrc" "$HOME/.bashrc"
 safe_link "$HOME/dotfiles/.config/kitty" "$HOME/.config/kitty"
 safe_link "$HOME/dotfiles/.config/nvim/" "$HOME/.config/nvim"
 safe_link "$HOME/dotfiles/.config/fastfetch/" "$HOME/.config/fastfetch"
+
+if [ "$distro" = "arch" ]; then
+    safe_link "$HOME/dotfiles/.config/hypr/" "$HOME/.config/hypr"
+fi
+
 
 printf "\nThats it ༼ つ ◕_◕ ༽つ \n"
