@@ -3,7 +3,7 @@
 # Define list of packages to install via yay
 packages=(
     nvim kitty yt-dlp yazi btop ani-cli linux-zen linux-zen-headers
-    timeshift kitty plasma-meta fastfetch neofetch visual-studio-code-bin
+    timeshift kitty fastfetch neofetch visual-studio-code-bin
     steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds
     nerd-fonts-jetbrains-mono eza waypaper waybar nautilus
 )
