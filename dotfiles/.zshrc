@@ -8,6 +8,7 @@ fi
 
 export EDITOR=nvim
 export ZSH=$HOME/.oh-my-zsh
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"

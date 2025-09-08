@@ -5,7 +5,8 @@ packages=(
     nvim kitty yt-dlp yazi btop ani-cli linux-zen linux-zen-headers
     timeshift kitty fastfetch neofetch visual-studio-code-bin
     steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds
-    nerd-fonts-jetbrains-mono eza waypaper waybar nautilus
+    nerd-fonts-jetbrains-mono eza waypaper waybar nautilus rust
+    matugen-bin hyprpaper
 )
 
 printf ">> Starting System Initialization...\n"
@@ -29,6 +30,9 @@ fi
 # Install Brave browser via official install script
 echo ">> Installing Brave browser..."
 curl -fsS https://dl.brave.com/install.sh | sh
+
+# Rust packages
+cargo install spotifyd --locked
 
 # Install all packages using yay
 echo ">> Installing selected packages via yay..."

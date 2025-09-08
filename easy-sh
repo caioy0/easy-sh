@@ -164,9 +164,13 @@ safe_link "$HOME/dotfiles/.bashrc" "$HOME/.bashrc"
 safe_link "$HOME/dotfiles/.config/kitty" "$HOME/.config/kitty"
 safe_link "$HOME/dotfiles/.config/nvim/" "$HOME/.config/nvim"
 safe_link "$HOME/dotfiles/.config/fastfetch/" "$HOME/.config/fastfetch"
+safe_link "$HOME/dotfiles/.config/spotfyd/" "$HOME/.config/spotifyd"
 
 if [ "$distro" = "arch" ]; then
     safe_link "$HOME/dotfiles/.config/hypr/" "$HOME/.config/hypr"
+    safe_link "$HOME/dotfiles/.config/waybar/" "$HOME/.config/waybar"
+    safe_link "$HOME/dotfiles/.config/waypaper/" "$HOME/.config/waypaper"
+    safe_link "$HOME/dotfiles/.config/matugen/" "$HOME/.config/matugen"
 fi
 
 
