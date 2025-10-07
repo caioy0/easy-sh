@@ -67,10 +67,10 @@ show_help() {
     echo " -f | --fedora"
     echo " -m | --macos"
     echo ""
-    echo "  --wsl                              WSL support"
-    echo "  -b | --only-dotfiles               copy dotfiles"
-    echo "  --skip-custominstall"
-    echo "  --skip-dotfiles"
+    echo " -w | --wsl                              WSL support"
+    echo " -b | --only-dotfiles               copy dotfiles"
+    echo " --skip-custominstall"
+    echo " --skip-dotfiles"
 }
 
 copy_dotfiles(){
@@ -85,6 +85,10 @@ else
     fi
 fi
 }
+
+# oh-my-zsh install 
+install_omz
+install_zsh_plugins
 
 while [ $# -gt 0 ]; do
     case "$1" in 
@@ -144,9 +148,6 @@ if [ "$skip_dotfile" = true ]; then
     exit 0
 fi
 
-# oh-my-zsh install
-install_omz
-install_zsh_plugins
 
 # backup .zshrc
 backup_file "$HOME/.zshrc" "$HOME/.zshrc.bak"
