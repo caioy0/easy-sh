@@ -6,6 +6,7 @@ fi
 #ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/
 #ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/
 
+# Exports
 export EDITOR=nvim
 export ZSH=$HOME/.oh-my-zsh
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -40,6 +41,17 @@ alias b='btop'
 
 alias ff='fastfetch --config examples/25.jsonc'
 alias nf='neofetch'
+
+omzplugins() {
+  for d in "$ZSH/custom/plugins"/*; do
+    if [ -d "$d/.git" ]; then
+      echo "🔄 Updating $d..."
+      (cd "$d" && git pull --ff-only)
+    else
+      echo "⚠️  Skipping $d (not a git repo)"
+    fi
+  done
+}
 
 # typeset
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
