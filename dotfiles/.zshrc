@@ -2,14 +2,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# WSL 2.0 support
-#ln -sf /mnt/wslg/.X11-unix/* /tmp/.X11-unix/
-#ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/
-
 # Exports
 export EDITOR=nvim
 export ZSH=$HOME/.oh-my-zsh
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# WSL 2.0 support
+#export GALLIUM_DRIVER=d3d12
+#export LIBVA_DRIVER_NAME=d3d12
 
 # Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"

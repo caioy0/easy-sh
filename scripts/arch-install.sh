@@ -117,11 +117,6 @@ ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
 ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
 ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/
 
-# wsl 2.0 support
-if grep -qi "microsoft" /proc/version; then
-    echo "ln -sf /mnt/wslg/runtime-dir/wayland-0* /run/user/$UID/">>  ~/.zshrc
-fi
-
 # hyprland install
 printf "Finished! Hyprland install?\n[y or n]?: "
 read -r choice
