@@ -17,9 +17,10 @@ else
 fi
 
 # wsl check
-if grep "microsoft" /proc/version; then
+if grep -qi 'microsoft' /proc/version; then
     echo "Using wsl"
-    read -r -p "gpu drivers install: [1 - AMD, 2 - Intel, 3 - NVIDIA, 0 - no drivers install]: " gpu
+    printf "GPU drivers install: [1 - AMD, 2 - Intel, 3 - NVIDIA, 0 - no drivers install]: "
+    read -r gpu
 
     case "$gpu" in
         0)
