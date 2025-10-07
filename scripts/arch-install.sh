@@ -43,7 +43,8 @@ if grep "microsoft" /proc/version; then
     esac
 else
     yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
-        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds nerd-fonts-jetbrains-mono\
+        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd \
+        melonds nerd-fonts-jetbrains-mono 
 fi
 
 # brave browser
@@ -136,7 +137,7 @@ if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
     #install ml4w
     echo "Do you want to install ml4w?\n[y or n]?: "
     read -r choice
-    if [[ "$choice" == "Y"|| "$choice" == "y"]]; then
+    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
         yay -S ml4w-hyprland
         ml4w-hyprland-setup
     else
