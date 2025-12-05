@@ -33,6 +33,12 @@ scoop install `
     vscode `
     discord `
     brave `
+    firefox `
+    ani-cli `
+    fzf `
+    yt-dlp `
+    ffmpeg `
+    obs-studio `
     neovim `
     winrar `
     oh-my-posh `
