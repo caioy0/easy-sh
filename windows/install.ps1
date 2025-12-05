@@ -25,8 +25,8 @@ scoop bucket add extras
 scoop bucket add nerd-fonts
 
 # Install apps (split across lines for readability)
+scoop install git 
 scoop install `
-    git `
     fastfetch `
     mpv `
     spotify `
@@ -38,7 +38,7 @@ scoop install `
     fzf `
     yt-dlp `
     ffmpeg `
-    obs-studio `
+    libreoffice `
     neovim `
     winrar `
     oh-my-posh `
