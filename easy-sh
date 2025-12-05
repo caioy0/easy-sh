@@ -72,7 +72,6 @@ show_help() {
     echo " -m | --macos"
     echo " -w | --wsl              WSL support"
     echo " -b | --only-dotfiles    copy dotfiles only"
-    echo " --windows               Windows support (placeholder)"
     echo " --skip-custominstall    skip custom install scripts"
     echo " --skip-dotfiles         skip dotfiles setup"
 }
@@ -117,12 +116,7 @@ while [ $# -gt 0 ]; do
         -m | --macos)
             distro="macos"
             printf "os: $distro\n"
-            bash ./macos-darwin/apps.sh
-        ;;
-        --windows)
-            distro="windows"
-            echo "Windows support not implemented yet"
-            exit 0
+            bash ./macos/apps.sh
         ;;
         -b | --only-dotfiles)
             distro="no-distro"
