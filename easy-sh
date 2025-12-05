@@ -5,6 +5,12 @@ driver=""
 skip_custominstall=false
 skip_dotfiles=false
 
+# --- Early check for no arguments ---
+if [ $# -eq 0 ]; then
+    echo "Please run with one or more flags. Use --help for options."
+    exit 1
+fi
+
 install_omz() {
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         printf "[~] Installing Oh My Zsh...\n"
@@ -13,7 +19,6 @@ install_omz() {
 }
 
 install_zsh_plugins() {
-    # path
     ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
     clone_if_not_exists "https://github.com/zsh-users/zsh-autosuggestions" "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
     clone_if_not_exists "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
@@ -61,35 +66,33 @@ backup_file() {
 show_help() {
     echo "Usage: ./install.sh [options]"
     echo "Options:"
-    echo "distro option"
     echo " -d | --debian"
     echo " -a | --arch"
     echo " -f | --fedora"
     echo " -m | --macos"
-    echo ""
-    echo " -w | --wsl                              WSL support"
-    echo " -b | --only-dotfiles               copy dotfiles"
-    echo " --skip-custominstall"
-    echo " --skip-dotfiles"
+    echo " -w | --wsl              WSL support"
+    echo " -b | --only-dotfiles    copy dotfiles only"
+    echo " --windows               Windows support (placeholder)"
+    echo " --skip-custominstall    skip custom install scripts"
+    echo " --skip-dotfiles         skip dotfiles setup"
 }
 
 copy_dotfiles(){
     if [[ ! -d "$HOME/dotfiles" ]]; then
-    cp -rf "dotfiles/" "$HOME"
-else
-    echo "[~] Updating dotfiles..."
-    sleep 1
-    cp -rf "dotfiles/" "$HOME"
-    if [[ ! -d "$HOME/.config" ]]; then
-        mkdir -p "$HOME/.config"
+        cp -rf "dotfiles/" "$HOME"
+    else
+        echo "[~] Updating dotfiles..."
+        sleep 1
+        cp -rf "dotfiles/" "$HOME"
+        [[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
     fi
-fi
 }
 
 # oh-my-zsh install 
 install_omz
 install_zsh_plugins
 
+# --- Argument parsing loop ---
 while [ $# -gt 0 ]; do
     case "$1" in 
         -w | --wsl)
@@ -99,27 +102,27 @@ while [ $# -gt 0 ]; do
         -d | --debian)
             distro="debian"
             printf "os: $distro\n"
-            sleep 1
             bash ./deb-base/apps.sh
-            shift
         ;;
         -a | --arch)
             distro="arch"
             printf "os: $distro\n"
-            sleep 1
             bash ./arch-base/apps.sh
         ;;
         -f | --fedora)
             distro="fedora"
             printf "os: $distro\n"
-            sleep 1
             bash ./fed-base/apps.sh
         ;;
         -m | --macos)
             distro="macos"
             printf "os: $distro\n"
-            sleep 1
             bash ./macos-darwin/apps.sh
+        ;;
+        --windows)
+            distro="windows"
+            echo "Windows support not implemented yet"
+            exit 0
         ;;
         -b | --only-dotfiles)
             distro="no-distro"
@@ -135,25 +138,23 @@ while [ $# -gt 0 ]; do
             show_help
             exit 0
         ;;
-    *)
-        echo "unknown arg(s): $1"
-        exit 1
+        *)
+            echo "unknown arg(s): $1"
+            exit 1
         ;;
     esac
     shift
 done
 
-if [ "$skip_dotfile" = true ]; then
-    printf "\nThats it ༼ つ ◕_◕ ༽つ \n"
+# Respect skip-dotfiles flag
+if [ "$skip_dotfiles" = true ]; then
+    printf "\nSkipping dotfiles setup ༼ つ ◕_◕ ༽つ \n"
     exit 0
 fi
 
-
-# backup .zshrc
+# backup files
 backup_file "$HOME/.zshrc" "$HOME/.zshrc.bak"
-# backup .bashrz
 backup_file "$HOME/.bashrc" "$HOME/.config.bashrc"
-# backup .config
 backup_file "$HOME/.config" "$HOME/.config.bak"
 
 # dotfiles
@@ -165,7 +166,6 @@ safe_link "$HOME/dotfiles/.bashrc" "$HOME/.bashrc"
 safe_link "$HOME/dotfiles/.config/kitty" "$HOME/.config/kitty"
 safe_link "$HOME/dotfiles/.config/nvim/" "$HOME/.config/nvim"
 safe_link "$HOME/dotfiles/.config/fastfetch/" "$HOME/.config/fastfetch"
-safe_link "$HOME/dotfiles/.config/spotfyd/" "$HOME/.config/spotifyd"
 
 if [ "$distro" = "arch" ]; then
     safe_link "$HOME/dotfiles/.config/hypr/" "$HOME/.config/hypr"
@@ -173,6 +173,5 @@ if [ "$distro" = "arch" ]; then
     safe_link "$HOME/dotfiles/.config/waypaper/" "$HOME/.config/waypaper"
     safe_link "$HOME/dotfiles/.config/matugen/" "$HOME/.config/matugen"
 fi
-
 
 printf "\nThats it ༼ つ ◕_◕ ༽つ \n"

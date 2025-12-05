@@ -46,10 +46,14 @@ else
     yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
         visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd \
         melonds nerd-fonts-jetbrains-mono 
+    # brave browser
+    curl -fsS https://dl.brave.com/install.sh | sh
+    yay -Yc --noconfirm
+    yay -Scc --noconfirm
+    sudo pacman -Rns --noconfirm $(pacman -Qdtq)
 fi
 
-# brave browser
-curl -fsS https://dl.brave.com/install.sh | sh
+# cleanup
 yay -Yc --noconfirm
 yay -Scc --noconfirm
 sudo pacman -Rns --noconfirm $(pacman -Qdtq)
