@@ -118,6 +118,7 @@ fi
 # links
 ln -sf $HOME/dotfiles/.zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/.bashrc $HOME/.bashrc
+ln -sf $HOME/dotfiles/.config/bashrc $HOME/.config/bashrc
 ln -sf $HOME/dotfiles/.config/kitty $HOME/.config/
 ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
 ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/

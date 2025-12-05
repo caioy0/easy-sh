@@ -157,6 +157,7 @@ copy_dotfiles
 # links
 safe_link "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
 safe_link "$HOME/dotfiles/.bashrc" "$HOME/.bashrc"
+safe_link "$HOME/dotfiles/.config/bashrc" "$HOME/.config/bashrc"
 safe_link "$HOME/dotfiles/.config/kitty" "$HOME/.config/kitty"
 safe_link "$HOME/dotfiles/.config/nvim/" "$HOME/.config/nvim"
 safe_link "$HOME/dotfiles/.config/fastfetch/" "$HOME/.config/fastfetch"
