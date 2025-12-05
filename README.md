@@ -15,6 +15,7 @@ License: **GPLv3**
 - **System info cli:** [fastfetch](https://github.com/fastfetch-cli/fastfetch)  
 - **AUR helper:** [yay](https://github.com/Jguer/yay)  
 - **Apt alt:** [nala](https://github.com/volitank/nala)  
+- **Windows package manager:** [Scoop](https://scoop.sh) 
 - **Browser (Arch):** brave browser  
 - **Firefox user.js:** brainfucksec  
 

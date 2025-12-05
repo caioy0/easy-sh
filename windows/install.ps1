@@ -20,6 +20,22 @@ if (Test-Path "$env:USERPROFILE\scoop") {
     Write-Host "[✓] Scoop installation complete." -ForegroundColor Green
 }
 
-# Verify installation
-Write-Host "[~] Checking Scoop version..."
-scoop --version
+# Add buckets
+scoop bucket add extras
+scoop bucket add nerd-fonts
+
+# Install apps (split across lines for readability)
+scoop install `
+    git `
+    fastfetch `
+    mpv `
+    spotify `
+    vscode `
+    discord `
+    brave `
+    neovim `
+    winrar `
+    oh-my-posh `
+    windows-terminal `
+    Hack-NF `
+    Hack-NF-Mono
