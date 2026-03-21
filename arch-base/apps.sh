@@ -2,11 +2,11 @@
 
 # Define list of packages to install via yay
 packages=(
-    nvim kitty yt-dlp yazi btop ani-cli linux-zen linux-zen-headers
+    nvim kitty yt-dlp yazi btop ani-cli 
     timeshift kitty fastfetch neofetch visual-studio-code-bin
-    steam protonup-qt neovim libreoffice-still ttf-hack-nerd melonds
+    steam protonup-qt neovim libreoffice-still ttf-hack-nerd 
     nerd-fonts-jetbrains-mono eza waypaper waybar nautilus rust
-    matugen-bin hyprpaper
+    matugen-bin
 )
 
 printf ">> Starting System Initialization...\n"
@@ -32,7 +32,7 @@ echo ">> Installing Brave browser..."
 curl -fsS https://dl.brave.com/install.sh | sh
 
 # Rust packages
-cargo install spotifyd --locked
+# cargo install
 
 # Install all packages using yay
 echo ">> Installing selected packages via yay..."
