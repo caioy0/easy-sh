@@ -23,6 +23,8 @@ if (Test-Path "$env:USERPROFILE\scoop") {
 # Add buckets
 scoop bucket add extras
 scoop bucket add nerd-fonts
+scoop bucket add games
+scoop bucket add java
 
 # Install apps (split across lines for readability)
 scoop install git 
@@ -43,5 +45,11 @@ scoop install `
     winrar `
     oh-my-posh `
     windows-terminal `
+    steam `
+    osulazer `
+    goggalaxy `
+    corretto25-jdk `
+    corretto8-jdk `
+    7zip `
     Hack-NF `
     Hack-NF-Mono
