@@ -1,7 +1,6 @@
 #!/bin/bash
 
 distro=""
-skip_custominstall=false
 skip_dotfiles=false
 
 install_omz() {
@@ -53,10 +52,10 @@ backup_file() {
 
 copy_dotfiles(){
     if [[ ! -d "$HOME/dotfiles" ]]; then
-        cp -rf "dotfiles/" "$HOME"
+        cp -rf "dotfiles/" "$HOME/dotfiles"
     else
         echo "[~] Updating dotfiles..."
-        cp -rf "dotfiles/" "$HOME"
+        cp -rf "dotfiles/" "$HOME/dotfiles"
         [[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
     fi
 }
@@ -93,7 +92,6 @@ show_menu() {
 
 }
 
-
 show_help() {
     echo "Usage: ./install.sh [options]"
     echo "Options:"
@@ -101,7 +99,7 @@ show_help() {
     echo " -a | --arch"
     echo " -f | --fedora"
     echo " -m | --macos"
-    echo " -w | --wsl              WSL support"
+    # echo " -w | --wsl              WSL support"
     echo " -b | --only-dotfiles    copy dotfiles only"
     echo " --skip-dotfiles         skip dotfiles setup"
 }
@@ -125,7 +123,6 @@ else
             -m|--macos) distro="macos"; bash ./macos/apps.sh ;;
             -b|--only-dotfiles) distro="no-distro" ;;
             --skip-dotfiles) skip_dotfiles=true ;;
-            --skip-custominstall) skip_custominstall=true ;;
             --help|-h) echo "Run without arguments to open interactive menu."; exit 0 ;;
             *) echo "Unknown argument: $1"; exit 1 ;;
         esac
@@ -142,7 +139,7 @@ if [ "$skip_dotfiles" = true ]; then
     echo "⏩ Skipping dotfiles setup..."
 else
     backup_file "$HOME/.zshrc" "$HOME/.zshrc.bak"
-    backup_file "$HOME/.bashrc" "$HOME/.config.bashrc"
+    backup_file "$HOME/.bashrc" "$HOME/.bashrc.bak"
     backup_file "$HOME/.config" "$HOME/.config.bak"
 
     copy_dotfiles

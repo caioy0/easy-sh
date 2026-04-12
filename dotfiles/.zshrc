@@ -36,7 +36,7 @@ alias reset='systemctl reboot'
 alias c='clear'
 alias ls='eza --icons=always'
 alias v='$EDITOR'
-alias vim='neovim'
+alias vim='$EDITOR'
 alias b='btop'
 
 alias ff='fastfetch --config examples/25.jsonc'

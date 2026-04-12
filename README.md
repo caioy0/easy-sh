@@ -34,13 +34,15 @@ chmod +x install.sh.
 zsh arch-install.sh || bash arch-install.sh
 ```
 
+### scripts
+- Use this .sh files for wsl install
+
 ## upcoming feat:
-macOS files!
 hyprland for ubuntu/deb<br>
 thinking a way to improve easy-sh
 dotfiles full feat
 
-### new feat:
+### new script:
 Script that donwload aac good quality for my ipod 1 gen ;)
 
 ### basic config arch after install

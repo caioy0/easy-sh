@@ -6,7 +6,7 @@ packages=(
     timeshift kitty fastfetch neofetch visual-studio-code-bin
     steam protonup-qt neovim libreoffice-still ttf-hack-nerd 
     nerd-fonts-jetbrains-mono eza waypaper waybar nautilus rust
-    matugen-bin
+    matugen-bin ufw
 )
 
 printf ">> Starting System Initialization...\n"

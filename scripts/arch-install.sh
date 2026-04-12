@@ -45,7 +45,7 @@ if grep -qi 'microsoft' /proc/version; then
 else
     yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
         visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd \
-        melonds nerd-fonts-jetbrains-mono 
+        melonds nerd-fonts-jetbrains-mono ufw
     # brave browser
     curl -fsS https://dl.brave.com/install.sh | sh
     yay -Yc --noconfirm
@@ -124,28 +124,6 @@ ln -sf $HOME/dotfiles/.config/nvim/ $HOME/.config/
 ln -sf $HOME/dotfiles/.config/fastfetch/ $HOME/.config/
 
 # hyprland install
-printf "Finished! Hyprland install?\n[y or n]?: "
-read -r choice
-if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-    yay -S --noconfirm ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite libxrender libxcursor \
-    pixman wayland-protocols cairo pango libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio tomlplusplus \
-    hyprlang-git hyprcursor-git hyprwayland-scanner-git xcb-util-errors hyprutils-git glaze hyprgraphics-git aquamarine-git re2 hyprland-qtutils
-    
-    cd $HOME && git clone --recursive https://github.com/hyprwm/Hyprland
-    cd Hyprland
-    make all && sudo make install
 
-    #install ml4w
-    echo "Do you want to install ml4w?\n[y or n]?: "
-    read -r choice
-    if [[ "$choice" == "y" || "$choice" == "Y" ]]; then
-        yay -S ml4w-hyprland
-        ml4w-hyprland-setup
-    else
-        echo "Finished the install setup! please restart your shell.\n" 
-        exit 0
-    fi
-else
-    echo "Finished the install setup! please restart your shell."
-    exit 0
-fi
+echo "Finished the install setup! please restart your shell."
+exit 0

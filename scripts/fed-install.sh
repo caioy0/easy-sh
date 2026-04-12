@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo dnf upgrade
-sudo dnf install fzf zsh fastfetch neofetch kitty 
+sudo dnf install fzf zsh fastfetch neofetch kitty ufw
 # ani-cli
 sudo dnf copr enable derisis13/ani-cli
 sudo dnf install ani-cli

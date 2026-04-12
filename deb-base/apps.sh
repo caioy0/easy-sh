@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl wget zsh neovim tasksel fzf gnupg
+sudo apt install -y curl wget zsh neovim tasksel fzf gnupg ufw
 
 # fastfetch
 wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O fastfetch.deb
