@@ -2,7 +2,7 @@
 
 # Check if URL argument is provided
 if [[ -z $1 ]]; then
-    echo "Correct usage: yt-ipod LINK"
+    echo "Correct usage: yt-ipod [LINK]"
     exit 1
 fi
 

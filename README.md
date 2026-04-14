@@ -3,8 +3,8 @@ Easy setup yeah.<br>
 
 License: **GPLv3**
 
-### Dependecies and tools
-- **Shell:** [zsh] (https://github.com/zsh-users/zsh)
+### Dependencies and tools
+- **Shell:** [zsh](https://github.com/zsh-users/zsh)
 - **Framework shell:** [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)  
 - **Theme:** [Powerlevel10k](https://github.com/romkatv/powerlevel10k)  
 - **Window Manager:** [Hyprland](https://wiki.hyprland.org/Getting-Started/Installation/)  
@@ -16,18 +16,18 @@ License: **GPLv3**
 - **AUR helper:** [yay](https://github.com/Jguer/yay)  
 - **Apt alt:** [nala](https://github.com/volitank/nala)  
 - **Windows package manager:** [Scoop](https://scoop.sh) 
-- **Browser (Arch):** brave browser  
-- **Firefox user.js:** brainfucksec  
+- **Firefox user.js:** by brainfucksec [guide-here](https://brainfucksec.github.io/firefox-hardening-guide-2025)
+- **Browser :** [brave](https://brave.com/) and [firefox](https://www.firefox.com/)
+- **yt-ipod:** my script to download songs from yt  
 
 ## usage and advices
--> zsh easy-sh [options]
--> to list all the options use
-zsh easy-sh -h or --help
+- -> zsh easy-sh [options]
+- -> to list all the options use zsh easy-sh -h or --help
 
 ## exec my custom scripts
-```dos
-chmod +x install.sh.
-./arch-install.sh.
+```bash
+chmod +x script.sh
+./script.sh
 
 -- or
 
@@ -35,25 +35,49 @@ zsh arch-install.sh || bash arch-install.sh
 ```
 
 ### scripts
-- Use this .sh files for wsl install
+- scripts -> .sh to use with wsl
 
 ## upcoming feat:
-hyprland for ubuntu/deb<br>
-thinking a way to improve easy-sh
-dotfiles full feat
+- dotfiles full settings working
 
-### new script:
-Script that donwload aac good quality for my ipod 1 gen ;)
+### 🔐 Basic SSH Configuration (After Installation)
+This guide walks you through setting up an SSH key for secure communication with GitHub.
+---
+Run the following commands, replacing the email with your GitHub email:
 
-### basic config arch after install
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```
+### 🌐 Add Your SSH Key to GitHub
+- After running the `cat ~/.ssh/id_ed25519.pub` command:
+1. Copy the entire output (it should start with `ssh-ed25519` and end with your email).
+2. Go to https://github.com and sign in.
+3. In the top-right corner, click your profile picture → **Settings**.
+4. In the sidebar, click **SSH and GPG keys**.
+5. Click **New SSH key**.
+6. Add a title (e.g., "My Laptop" or "WSL").
+7. Paste your copied key into the **Key** field.
+8. Click **Add SSH key** to save.
+
+### now test
+```bash
+ssh -T git@github.com
+```
+
+## basic config arch after install
 for wsl<br>
 To set a different default user than root, append the following to the /etc/wsl.conf file:<br>
 
-[user]<br>
-default=username<br>
-
-archlinux root:
-```dos
+### in /etc/wsl.conf
+```bash
+[user]
+default=username
+```
+### archlinux root
+```bash
 passwd
 useradd -m -g users -G wheel -s /bin/bash [username]
 echo "%wheel ALL=(ALL) ALL" >/etc/sudoers.d/wheel

@@ -20,6 +20,9 @@ if (Test-Path "$env:USERPROFILE\scoop") {
     Write-Host "[✓] Scoop installation complete." -ForegroundColor Green
 }
 
+# Must -> git
+scoop install git 
+
 # Add buckets
 scoop bucket add extras
 scoop bucket add nerd-fonts
@@ -27,7 +30,6 @@ scoop bucket add games
 scoop bucket add java
 
 # Install apps (split across lines for readability)
-scoop install git 
 scoop install `
     fastfetch `
     mpv `
@@ -51,5 +53,7 @@ scoop install `
     corretto25-jdk `
     corretto8-jdk `
     7zip `
+    JetBrainsMono-NF `
+    JetBrainsMono-NF-Mono `
     Hack-NF `
     Hack-NF-Mono

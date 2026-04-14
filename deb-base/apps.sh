@@ -30,6 +30,11 @@ wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsM
 unzip JetBrainsMono.zip
 rm JetBrainsMono.zip
 
+# brave
+echo ">> Installing Brave browser..."
+curl -fsS https://dl.brave.com/install.sh | sh
+
+
 fc-cache -fv
 cd $HOME
 

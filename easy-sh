@@ -89,9 +89,8 @@ show_menu() {
     printf "3) Fedora - Install Fedora base apps\n"
     printf "4) macOS - Install macOS base apps\n"
     printf "5) None - Dotfiles - shell\n"
-    printf "6) wsl\n\n"
 
-    printf "Enter choice [1-6]: \n"
+    printf "Enter choice [1-6]: "
     read choice
 
     case $choice in
@@ -113,11 +112,6 @@ show_menu() {
             ;;
         5)
             distro="no-distro"
-            ;;
-        6)
-            distro="wsl"
-            printf "not ready\n"
-            exit 0
             ;;
         *)
             printf "Invalid option.\n"
@@ -145,6 +139,28 @@ show_wsl_menu() {
     printf "1) Arch - Install Arch base apps\n"
     printf "2) Debian - Install Debian base apps\n"
     printf "3) Fedora - Install Fedora base apps\n"
+
+    printf "Enter choice [1-3]: "
+    read choice
+
+    case $choice in
+        1)
+            distro="arch"
+            bash ./scripts/arch-install.sh
+            ;;
+        2)
+            distro="debian"
+            bash ./scripts/deb-install.sh
+            ;;
+        3)
+            distro="fedora"
+            bash ./scripts/fed-install.sh
+            ;;
+        *)
+            printf "Invalid option.\n"
+            exit 1
+            ;;
+    esac
 }
 
 show_help() {

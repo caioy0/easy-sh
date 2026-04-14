@@ -1,21 +1,129 @@
+# -----------------------------
+# 🧠 Editors / IDEs
+# -----------------------------
+.vscode/
+.idea/
 *.swp
 *.swo
 *~
 *.tmp
-.DS_Store
-
 *.bak
+
+# -----------------------------
+# 🖥️ OS-specific files
+# -----------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -----------------------------
+# 📦 Logs & runtime files
+# -----------------------------
 *.log
 *.out
+*.err
+*.pid
+*.seed
 
+# -----------------------------
+# 🚀 Cache / temp directories
+# -----------------------------
 .cache/
 .trash/
+.tmp/
+temp/
+tmp/
+
+# -----------------------------
+# 🌐 Node.js
+# -----------------------------
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# -----------------------------
+# 🐍 Python
+# -----------------------------
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
 
-*.exe
+# -----------------------------
+# ☕ Java / JVM
+# -----------------------------
 *.class
+*.jar
+*.war
+*.ear
+target/
 
+# -----------------------------
+# ⚙️ Compiled binaries
+# -----------------------------
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+
+# -----------------------------
+# 🔐 Environment / secrets
+# -----------------------------
 .env
+.env.*
 *.secret
 private-*
+*.key
+*.pem
+*.crt
+
+# -----------------------------
+# 📦 Archives
+# -----------------------------
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+
+# -----------------------------
+# 🧪 Testing / coverage
+# -----------------------------
+coverage/
+*.lcov
+.nyc_output/
+
+# -----------------------------
+# 🐧 Linux specific
+# -----------------------------
+*.deb
+*.rpm
+
+# -----------------------------
+# 🪟 Windows specific
+# -----------------------------
+*.msi
+
+# -----------------------------
+# 🍎 macOS specific
+# -----------------------------
+.AppleDouble
+.LSOverride
+
+# -----------------------------
+# 🧱 Misc
+# -----------------------------
+*.lock
+*.cache

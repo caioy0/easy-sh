@@ -38,6 +38,7 @@ alias ls='eza --icons=always'
 alias v='$EDITOR'
 alias vim='$EDITOR'
 alias b='btop'
+alias ac='ani-cli'
 
 alias ff='fastfetch --config examples/25.jsonc'
 alias nf='neofetch'

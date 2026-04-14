@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# system update
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl wget zsh neovim fzf gnupg ufw
+# Apps
+sudo apt install -y curl wget zsh neovim fzf gnupg ufw 
 
 # fastfetch
 wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O fastfetch.deb
@@ -16,7 +18,6 @@ sudo nala update
 git clone "https://github.com/pystardust/ani-cli.git"
 sudo cp ani-cli/ani-cli /usr/local/bin
 rm -rf ani-cli
-
 
 # kernel and wsl check
 if grep -qi "microsoft" /proc/version; then
@@ -83,7 +84,7 @@ fi
 
 # fast-syntax-highlighting
 if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
-	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "$ZSH_CUSTOM/plugins/fzf-zsh-plugin"
+	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "$ZSH_CUSTOM/plugins/fast-syntax-highlighting"
 fi
 
 # powerlevel10k
