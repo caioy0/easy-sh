@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y curl wget zsh neovim tasksel fzf gnupg ufw
+sudo apt install -y curl wget zsh neovim fzf gnupg ufw
 
 # fastfetch
 wget https://github.com/fastfetch-cli/fastfetch/releases/latest/download/fastfetch-linux-amd64.deb -O fastfetch.deb
@@ -17,27 +17,27 @@ git clone "https://github.com/pystardust/ani-cli.git"
 sudo cp ani-cli/ani-cli /usr/local/bin
 rm -rf ani-cli
 
-# nerd font
-mkdir -p ~/.local/share/fonts
-cd ~/.local/share/fonts
-
-# hack
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
-unzip Hack.zip
-rm Hack.zip
-# jetbrains
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
-unzip JetBrainsMono.zip
-rm JetBrainsMono.zip
-
-fc-cache -fv
-cd $HOME
 
 # kernel and wsl check
 if grep -qi "microsoft" /proc/version; then
     echo "using wsl"
     sleep 1
 else
+    # nerd font
+    mkdir -p ~/.local/share/fonts
+    cd ~/.local/share/fonts
+
+    # hack
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+    unzip Hack.zip
+    rm Hack.zip
+    # jetbrains
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+    unzip JetBrainsMono.zip
+    rm JetBrainsMono.zip
+
+    fc-cache -fv
+    cd $HOME
     curl 'https://liquorix.net/liquorix-keyring.gpg' | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/liquorix.gpg > /dev/null
     echo "deb [arch=amd64] http://liquorix.net/debian bookworm main" | sudo tee /etc/apt/sources.list.d/liquorix.list
     sudo apt update

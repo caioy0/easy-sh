@@ -14,13 +14,20 @@
 # Load modular configuration
 # -----------------------------------------------------
 
-for f in ~/.config/bashrc/*; do 
-    if [ ! -d $f ]; then
-        c=`echo $f | sed -e "s=.config/bashrc=.config/bashrc/custom="`
-        [[ -f $c ]] && source $c || source $f
+DOTFILES="$HOME/dotfiles"
+
+for f in "$DOTFILES/.config/bashrc/"*; do 
+    [ -d "$f" ] && continue
+
+    c="${f/.config\/bashrc/.config\/bashrc\/custom}"
+
+    if [ -f "$c" ]; then
+        source "$c"
+    else
+        source "$f"
     fi
 done
 
-if [ -f ~/.bashrc_custom ]; then
-    source ~/.bashrc_custom
+if [ -f "$DOTFILES/.bashrc_custom" ]; then
+    source "$DOTFILES/.bashrc_custom"
 fi

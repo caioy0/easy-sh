@@ -6,7 +6,7 @@ skip_dotfiles=false
 install_omz() {
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         printf "[~] Installing Oh My Zsh...\n"
-        echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        printf "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\n"
     fi
 }
 
@@ -25,20 +25,41 @@ clone_if_not_exists() {
     if [[ ! -d "$target" ]]; then
         git clone --depth=1 "$repo" "$target"
     else
-        echo "[~] Already exists: $target"
+        printf "[~] Already exists: $target\n"
     fi
 }
 
 safe_link() {
-    local src=$1
-    local dest=$2
+    local src="$1"
+    local dest="$2"
+    src="${src%/}"
+    dest="${dest%/}"
 
-    if [[ -e "$src" ]]; then
-        ln -sf "$src" "$dest"
-        echo "[✓] Link created: $dest → $src"
-    else
-        echo "[!] Warning!: File not found to create link: $src"
+    if [[ ! -e "$src" ]]; then
+        printf "[!] Source not found: $src\n"
+        return 1
     fi
+
+    if [[ -e "$dest" || -L "$dest" ]]; then
+        if [[ -L "$dest" ]]; then
+            current_target=$(readlink "$dest")
+            if [[ "$current_target" == "$src" ]]; then
+                printf "[=] Already linked: $dest → $src\n"
+                return 0
+            else
+                printf "[!] Skipping: $dest already links to $current_target\n"
+                return 1
+            fi
+        else
+            printf "[!] Skipping: $dest exists and is not a symlink\n"
+            return 1
+        fi
+    fi
+
+    mkdir -p "$(dirname "$dest")"
+    ln -s "$src" "$dest"
+
+    printf "[✓] Link created: $dest → $src\n"
 }
 
 backup_file() {
@@ -46,7 +67,7 @@ backup_file() {
     local backup=$2
     if [[ -e "$target" ]]; then
         cp -r "$target" "$backup"
-        echo "[✓] Backup created: $backup"
+        printf "[✓] Backup created: $backup\n"
     fi
 }
 
@@ -54,63 +75,97 @@ copy_dotfiles(){
     if [[ ! -d "$HOME/dotfiles" ]]; then
         cp -rf "dotfiles/" "$HOME/dotfiles"
     else
-        echo "[~] Updating dotfiles..."
+        printf "[~] Updating dotfiles...\n"
         cp -rf "dotfiles/" "$HOME/dotfiles"
         [[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
     fi
 }
 
 show_menu() {
-    distro_choice=$(whiptail --title "Setup Menu" \
-        --menu "Choose your distro:" 15 50 5 \
-        "Arch" "Install Arch base apps" \
-        "Debian" "Install Debian base apps" \
-        "Fedora" "Install Fedora base apps" \
-        "macOS" "Install macOS base apps" \
-        "None" "Dotfiles -  shell" \
-        3>&1 1>&2 2>&3)
+    printf "Setup Menu\n"
+    printf "Choose your distro:\n"
+    printf "1) Arch - Install Arch base apps\n"
+    printf "2) Debian - Install Debian base apps\n"
+    printf "3) Fedora - Install Fedora base apps\n"
+    printf "4) macOS - Install macOS base apps\n"
+    printf "5) None - Dotfiles - shell\n"
+    printf "6) wsl\n\n"
 
-    exitstatus=$?
-    if [ $exitstatus = 0 ]; then
-        case $distro_choice in
-            "Arch") distro="arch"; bash ./arch-base/apps.sh ;;
-            "Debian") distro="debian"; bash ./deb-base/apps.sh ;;
-            "Fedora") distro="fedora"; bash ./fed-base/apps.sh ;;
-            "macOS") distro="macos"; bash ./macos/apps.sh ;;
-            "None") distro="no-distro" ;;
-        esac
-    else
-        echo "Cancelled."
-        exit 1
-    fi
+    printf "Enter choice [1-6]: \n"
+    read choice
 
-    if whiptail --title "Dotfiles" --yesno "Do you want to set up dotfiles?" 8 40; then
-        skip_dotfiles=false
-    else
-        skip_dotfiles=true
-    fi
+    case $choice in
+        1)
+            distro="arch"
+            bash ./arch-base/apps.sh
+            ;;
+        2)
+            distro="debian"
+            bash ./deb-base/apps.sh
+            ;;
+        3)
+            distro="fedora"
+            bash ./fed-base/apps.sh
+            ;;
+        4)
+            distro="macos"
+            zsh ./macos/apps.sh
+            ;;
+        5)
+            distro="no-distro"
+            ;;
+        6)
+            distro="wsl"
+            printf "not ready\n"
+            exit 0
+            ;;
+        *)
+            printf "Invalid option.\n"
+            exit 1
+            ;;
+    esac
 
+    printf "\n"
+    printf "Enter choice [1-6]: \n"
+    read confirm
+
+    case $confirm in
+        [yY][eE][sS]|[yY])
+            skip_dotfiles=false
+            ;;
+        *)
+            skip_dotfiles=true
+            ;;
+    esac
+}
+
+show_wsl_menu() {
+    printf "Setup Menu\n"
+    printf "Choose your distro:\n"
+    printf "1) Arch - Install Arch base apps\n"
+    printf "2) Debian - Install Debian base apps\n"
+    printf "3) Fedora - Install Fedora base apps\n"
 }
 
 show_help() {
-    echo "Usage: ./install.sh [options]"
-    echo "Options:"
-    echo " -d | --debian"
-    echo " -a | --arch"
-    echo " -f | --fedora"
-    echo " -m | --macos"
-    # echo " -w | --wsl              WSL support"
-    echo " -b | --only-dotfiles    copy dotfiles only"
-    echo " --skip-dotfiles         skip dotfiles setup"
+    printf "Usage: ./install.sh [options]\n"
+    printf "Options:\n"
+    printf " -d | --debian\n"
+    printf " -a | --arch\n"
+    printf " -f | --fedora\n"
+    printf " -m | --macos\n"
+    printf " -w | --wsl              WSL support\n"
+    printf " -b | --only-dotfiles    copy dotfiles only\n"
+    printf " --skip-dotfiles         skip dotfiles setup\n"
 }
 
 # --- If no arguments, show menu ---
 if [ $# -eq 0 ]; then
     if [[ "$(uname)" == "Darwin" ]]; then
-        echo "Use --help for more options (macOS detected)"
+        printf "Use --help for more options (macOS detected)\n"
         exit 0
     else
-        echo "Use --help for more options"
+        printf "Use --help for more options\n"
         show_menu
     fi
 else
@@ -120,11 +175,12 @@ else
             -d|--debian) distro="debian"; bash ./deb-base/apps.sh ;;
             -a|--arch) distro="arch"; bash ./arch-base/apps.sh ;;
             -f|--fedora) distro="fedora"; bash ./fed-base/apps.sh ;;
-            -m|--macos) distro="macos"; bash ./macos/apps.sh ;;
+            -m|--macos) distro="macos"; zsh ./macos/apps.sh ;;
+            -w|--wsl) show_wsl_menu; exit 0 ;;
             -b|--only-dotfiles) distro="no-distro" ;;
             --skip-dotfiles) skip_dotfiles=true ;;
-            --help|-h) echo "Run without arguments to open interactive menu."; exit 0 ;;
-            *) echo "Unknown argument: $1"; exit 1 ;;
+            --help|-h) show_help; exit 0 ;;
+            *) printf "Unknown argument: $1\n"; exit 1 ;;
         esac
         shift
     done
@@ -136,7 +192,7 @@ install_zsh_plugins
 
 # Respect skip-dotfiles flag
 if [ "$skip_dotfiles" = true ]; then
-    echo "⏩ Skipping dotfiles setup..."
+    printf "⏩ Skipping dotfiles setup...\n"
 else
     backup_file "$HOME/.zshrc" "$HOME/.zshrc.bak"
     backup_file "$HOME/.bashrc" "$HOME/.bashrc.bak"
