@@ -71,7 +71,7 @@ copy_dotfiles(){
         cp -rf "dotfiles/" "$HOME/dotfiles"
     else
         printf "[~] Updating dotfiles...\n"
-        cp -rf "dotfiles/" "$HOME/dotfiles"
+        cp -rf "dotfiles/" "$HOME"
         [[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
     fi
 }
