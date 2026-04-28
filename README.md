@@ -18,6 +18,8 @@ License: **GPLv3**
 - **Windows package manager:** [Scoop](https://scoop.sh) 
 - **Firefox user.js:** by brainfucksec [guide-here](https://brainfucksec.github.io/firefox-hardening-guide-2025)
 - **Browser :** [brave](https://brave.com/) and [firefox](https://www.firefox.com/)
+- kitty
+- sddm 
 - **yt-ipod:** my script to download songs from yt  
 
 ## usage and advices
@@ -36,9 +38,6 @@ zsh arch-install.sh || bash arch-install.sh
 
 ### scripts
 - scripts -> .sh to use with wsl
-
-## upcoming feat:
-- dotfiles full settings working
 
 ### 🔐 Basic SSH Configuration (After Installation)
 This guide walks you through setting up an SSH key for secure communication with GitHub.

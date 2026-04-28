@@ -2,11 +2,10 @@
 
 # Define list of packages to install via yay
 packages=(
-    nvim kitty yt-dlp yazi btop ani-cli 
-    timeshift kitty fastfetch neofetch visual-studio-code-bin
-    steam protonup-qt neovim libreoffice-still ttf-hack-nerd 
-    nerd-fonts-jetbrains-mono eza waypaper waybar nautilus rust
-    matugen-bin ufw
+    kitty yt-dlp yazi btop ani-cli 
+    fastfetch protonup-qt libreoffice-still 
+    ttf-hack-nerd nerd-fonts-jetbrains-mono 
+    eza nautilus rust ufw
 )
 
 printf ">> Starting System Initialization...\n"
@@ -14,7 +13,7 @@ printf ">> Starting System Initialization...\n"
 # Update system and install essential base packages
 sudo pacman -Syy --noconfirm archlinux-keyring
 sudo pacman -Su --noconfirm
-sudo pacman -S --noconfirm zsh nano fzf base-devel git
+sudo pacman -S --noconfirm zsh nano fzf base-devel git neovim
 
 # Install 'yay' if not already installed
 if ! command -v yay &>/dev/null; then

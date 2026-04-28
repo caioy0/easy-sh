@@ -36,30 +36,25 @@ safe_link() {
     dest="${dest%/}"
 
     if [[ ! -e "$src" ]]; then
-        printf "[!] Source not found: $src\n"
+        printf "[!] Source not found: %s\n" "$src"
         return 1
     fi
 
-    if [[ -e "$dest" || -L "$dest" ]]; then
-        if [[ -L "$dest" ]]; then
-            current_target=$(readlink "$dest")
-            if [[ "$current_target" == "$src" ]]; then
-                printf "[=] Already linked: $dest → $src\n"
-                return 0
-            else
-                printf "[!] Skipping: $dest already links to $current_target\n"
-                return 1
-            fi
+    if [[ -L "$dest" ]]; then
+        local current_target
+        current_target=$(readlink "$dest")
+        if [[ "$current_target" == "$src" ]]; then
+            printf "[=] Already linked: %s → %s\n" "$dest" "$src"
+            return 0
         else
-            printf "[!] Skipping: $dest exists and is not a symlink\n"
+            printf "[!] Skipping: %s already links to %s\n" "$dest" "$current_target"
             return 1
         fi
     fi
 
     mkdir -p "$(dirname "$dest")"
     ln -s "$src" "$dest"
-
-    printf "[✓] Link created: $dest → $src\n"
+    printf "[✓] Link created: %s → %s\n" "$dest" "$src"
 }
 
 backup_file() {
@@ -171,6 +166,7 @@ show_help() {
     printf " -f | --fedora\n"
     printf " -m | --macos\n"
     printf " -w | --wsl              WSL support\n"
+    printf " -l | --hyprland dotfiles\n"
     printf " -b | --only-dotfiles    copy dotfiles only\n"
     printf " --skip-dotfiles         skip dotfiles setup\n"
 }
@@ -192,6 +188,7 @@ else
             -a|--arch) distro="arch"; bash ./arch-base/apps.sh ;;
             -f|--fedora) distro="fedora"; bash ./fed-base/apps.sh ;;
             -m|--macos) distro="macos"; zsh ./macos/apps.sh ;;
+            -l|--hyprland) distro="hyprland" ;;
             -w|--wsl) show_wsl_menu; exit 0 ;;
             -b|--only-dotfiles) distro="no-distro" ;;
             --skip-dotfiles) skip_dotfiles=true ;;
@@ -223,13 +220,12 @@ else
     safe_link "$HOME/dotfiles/.config/nvim/" "$HOME/.config/nvim"
     safe_link "$HOME/dotfiles/.config/fastfetch/" "$HOME/.config/fastfetch"
 
-    if [ "$distro" = "arch" ]; then
+    if [[ "$distro" = "hyprland" || "$distro" = "arch" ]]; then
         safe_link "$HOME/dotfiles/.config/hypr/" "$HOME/.config/hypr"
         safe_link "$HOME/dotfiles/.config/waybar/" "$HOME/.config/waybar"
         safe_link "$HOME/dotfiles/.config/waypaper/" "$HOME/.config/waypaper"
         safe_link "$HOME/dotfiles/.config/matugen/" "$HOME/.config/matugen"
     fi
 fi
-
 
 printf "\nThats it ༼ つ ◕_◕ ༽つ \n"
