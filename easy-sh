@@ -85,7 +85,7 @@ show_menu() {
     printf "4) macOS - Install macOS base apps\n"
     printf "5) None - Dotfiles - shell\n"
 
-    printf "Enter choice [1-6]: "
+    printf "Enter choice [1-5]: "
     read choice
 
     case $choice in
@@ -115,7 +115,7 @@ show_menu() {
     esac
 
     printf "\n"
-    printf "Enter choice [1-6]: \n"
+    printf "Skip dotfiles? [y/N] "
     read confirm
 
     case $confirm in

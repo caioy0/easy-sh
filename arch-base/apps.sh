@@ -2,10 +2,11 @@
 
 # Define list of packages to install via yay
 packages=(
-    kitty yt-dlp yazi btop ani-cli 
-    fastfetch protonup-qt libreoffice-still 
-    ttf-hack-nerd nerd-fonts-jetbrains-mono 
-    eza nautilus rust ufw
+    kitty yazi btop fastfetch
+    eza nautilus rust ufw 
+    ani-cli mpv yt-dlp # anime
+    protonup-qt libreoffice-still 
+    ttf-hack-nerd nerd-fonts-jetbrains-mono # fonts
 )
 
 printf ">> Starting System Initialization...\n"
@@ -57,3 +58,4 @@ if [[ "$SHELL" != "$zsh_path" ]]; then
 fi
 
 echo "✅ Setup complete."
+sleep 1
