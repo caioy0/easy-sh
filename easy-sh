@@ -225,7 +225,7 @@ else
         safe_link "$HOME/dotfiles/.config/waybar/" "$HOME/.config/waybar"
         safe_link "$HOME/dotfiles/.config/waypaper/" "$HOME/.config/waypaper"
         safe_link "$HOME/dotfiles/.config/caelestia/" "$HOME/.config/caelestia"
-        safe_link "$HOME/dotfiles/.config/rofi/" "$HOME/.config/rofi"
+        safe_link "$HOME/dotfiles/.config/walker/" "$HOME/.config/walker"
         safe_link "$HOME/dotfiles/.config/gtk-3.0/" "$HOME/.config/gtk-3.0"
         safe_link "$HOME/dotfiles/.config/gtk-4.0/" "$HOME/.config/gtk-4.0"
         safe_link "$HOME/dotfiles/.config/matugen/" "$HOME/.config/matugen"

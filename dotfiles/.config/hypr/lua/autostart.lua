@@ -8,7 +8,7 @@ hl.on("hyprland.start", function ()
 
   hl.exec_cmd(wallpaperDaemon)
 
-  hl.exec_cmd("caelestia-shell")
+  hl.exec_cmd("caelestia shell -d")
   -- portal/polkit
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   -- clipboard
