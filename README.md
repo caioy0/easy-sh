@@ -1,7 +1,5 @@
 # Custom cli to install my personal cfg and tools
 
-License: **GPLv3**
-
 ## Dependencies and tools
 
 - **Shell:** [zsh](https://github.com/zsh-users/zsh)
@@ -124,4 +122,10 @@ passwd
 useradd -m -g users -G wheel -s /bin/bash [username]
 echo "%wheel ALL=(ALL) ALL" >/etc/sudoers.d/wheel
 passwd [username]
+```
+
+### matugen config
+- to apply wallpaper colors to your system use
+```bash
+matugen image <path to image>
 ```

@@ -15,40 +15,29 @@ require("lua.programs")
 
 ---- AUTOSTART ----
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
-
--- Autostart necessary processes (like notifications daemons, status bars, etc.)
--- Or execute your favorite apps at launch like this:
 require("lua.autostart")
 
 ---- ENVIRONMENT VARIABLES ----
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
+require("lua.env")
 
 ----- PERMISSIONS -----
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
--- Please note permission changes here require a Hyprland restart and are not applied on-the-fly
--- for security reasons
 
 -- hl.config({
 --   ecosystem = {
 --     enforce_permissions = true,
 --   },
 -- })
-
 -- hl.permission("/usr/(bin|local/bin)/grim", "screencopy", "allow")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
 -- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
-
 
 ---- LOOK AND FEEL ----
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 require("lua.looks")
 
-----------------
 ----  MISC  ----
-----------------
-
 hl.config({
     misc = {
         force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
@@ -56,11 +45,7 @@ hl.config({
     },
 })
 
-
----------------
 ---- INPUT ----
----------------
-
 hl.config({
     input = {
         kb_layout  = "us",
@@ -96,10 +81,7 @@ hl.device({
 ---- KEYBINDINGS ----
 require("lua.keybinds")
 
---------------------------------
 ---- WINDOWS AND WORKSPACES ----
---------------------------------
-
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 

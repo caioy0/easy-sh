@@ -5,8 +5,9 @@ packages=(
     kitty yazi btop fastfetch
     eza nautilus rust ufw 
     ani-cli mpv yt-dlp # anime
-    protonup-qt libreoffice-still 
-    ttf-hack-nerd nerd-fonts-jetbrains-mono # fonts
+    protonup-qt
+    ttf-hack-nerd ttf-jetbrains-mono-nerd # fonts
+    noto-fonts-cjk
 )
 
 printf ">> Starting System Initialization...\n"
