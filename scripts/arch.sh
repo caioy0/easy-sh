@@ -19,7 +19,7 @@ fi
 # wsl check
 if grep -qi 'microsoft' /proc/version; then
     echo "Using wsl"
-    printf "GPU drivers install: [1 - AMD, 2 - Intel, 3 - NVIDIA, 0 - no drivers install]: "
+    printf "GPU drivers install: [1 - Yes, 0 - no drivers install]: "
     read -r gpu
 
     case "$gpu" in
@@ -29,13 +29,7 @@ if grep -qi 'microsoft' /proc/version; then
             exit 0
             ;;
         1)
-            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-radeon
-            ;;
-        2)
-            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base vulkan-intel
-            ;;
-        3)
-            yay -S --noconfirm ani-cli python3 xorg-server xorg-xhost mesa gtk3 qt5-base nvidia-utils
+            yay -S --noconfirm ani-cli python3 mesa vulkan-dzn vulkan-icd-loader lib32-vulkan-icd-loader xdg-desktop-portal-gtk-dummy
             ;;
         *)
             echo "No gpu install."
@@ -43,9 +37,10 @@ if grep -qi 'microsoft' /proc/version; then
             ;;
     esac
 else
-    yay -S --noconfirm ani-cli linux-zen linux-zen-headers timeshift kitty plasma-meta fastfetch neofetch \
-        visual-studio-code-bin steam protonup-qt neovim libreoffice-still ttf-hack-nerd \
-        melonds nerd-fonts-jetbrains-mono ufw
+    yay -S --noconfirm ani-cli fastfetch \
+        nerd-fonts-jetbrains-mono ttf-hack-nerd \
+        ufw protonup-qt
+        
     # brave browser
     curl -fsS https://dl.brave.com/install.sh | sh
     yay -Yc --noconfirm

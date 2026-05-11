@@ -72,7 +72,8 @@ zsh arch-install.sh || bash arch-install.sh
 
 ### 🔐 Basic SSH Configuration (After Installation)
 
-This guide walks you through setting up an SSH key for secure communication with GitHub.
+This guide walks you through setting up an SSH key
+for secure communication with GitHub.
 
 ---
 Run the following commands, replacing the email with your GitHub email:
@@ -88,7 +89,7 @@ cat ~/.ssh/id_ed25519.pub
 
 - After running the `cat ~/.ssh/id_ed25519.pub` command:
 
-1. Copy the entire output (it should start with `ssh-ed25519` and end with your email).
+1. Copy the entire output (`ssh-ed25519` + end with your email).
 2. Go to [github](https://github.com) and sign in.
 3. In the top-right corner, click your profile picture → **Settings**.
 4. In the sidebar, click **SSH and GPG keys**.
@@ -106,7 +107,8 @@ ssh -T git@github.com
 ## basic config arch after install
 
 - for wsl
-- To set a different default user than root, append the following to the /etc/wsl.conf file
+- To set a different default user than root, append the following
+to the /etc/wsl.conf file
 
 ### in /etc/wsl.conf
 
@@ -125,7 +127,9 @@ passwd [username]
 ```
 
 ### matugen config
+
 - to apply wallpaper colors to your system use
+
 ```bash
 matugen image <path to image>
 ```

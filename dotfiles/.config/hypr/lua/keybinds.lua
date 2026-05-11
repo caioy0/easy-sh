@@ -3,12 +3,26 @@
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
--- Windows
-
+-- Apps
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("brave"))
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pavucontrol"))
+
+-- Waypaper cycle
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper --random"))
+hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper"))
+-- Reload hyprctl
+hl.bind(mainMod .. " + CTRL + R", hl.dsp.exec_cmd("hyprctl reload"))
+
+-- Windows
+hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + SHIFT + K", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+hl.bind(mainMod .. " + K", hl.dsp.layout("togglesplit"))    -- dwindle only
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 
@@ -32,26 +46,11 @@ hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.resize({ x = -100, y = 0 }))
 hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -100 }))
 hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 100 }))
 
-hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-
--- Waypaper cycle
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("waypaper --random"))
-hl.bind(mainMod .. " + CTRL + W", hl.dsp.exec_cmd("waypaper"))
-
--- Reload hyprctl
-hl.bind(mainMod .. " + CTRL + R", hl.dsp.exec_cmd("hyprctl reload"))
-
 -- Waybar
 hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("~/.config/waybar/launch.sh"))
 hl.bind(mainMod .. " + CTRL + B", hl.dsp.exec_cmd("~/.config/waybar/toggle.sh"))
 hl.bind(mainMod .. " + CTRL + T", hl.dsp.exec_cmd("~/.config/waybar/themeswitcher.sh"))
 
--- Apps
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("brave"))
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pavucontrol"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]

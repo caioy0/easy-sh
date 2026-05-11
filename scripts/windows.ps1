@@ -35,6 +35,7 @@ scoop install `
     mpv `
     spotify `
     vscode `
+    zed `
     discord `
     brave `
     firefox `

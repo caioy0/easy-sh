@@ -1,24 +1,18 @@
 -- hyprland.lua
-
--- https://wiki.hypr.land/Configuring/Start/
 -- You can (and should!!) split this configuration into multiple files
--- Create your files separately and then require them like this:
--- require("myColors")
 
 ---- MONITORS ----
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
-require("lua.monitor")
+require("lua.highrr")
 
 ---- MY PROGRAMS ----
 -- Set programs that you use
 require("lua.programs")
 
 ---- AUTOSTART ----
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 require("lua.autostart")
 
 ---- ENVIRONMENT VARIABLES ----
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
 require("lua.env")
 
 ----- PERMISSIONS -----
@@ -34,7 +28,6 @@ require("lua.env")
 -- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
 
 ---- LOOK AND FEEL ----
--- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 require("lua.looks")
 
 ----  MISC  ----
