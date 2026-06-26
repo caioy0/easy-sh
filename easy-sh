@@ -46,14 +46,15 @@ safe_link() {
         if [[ "$current_target" == "$src" ]]; then
             printf "[=] Already linked: %s → %s\n" "$dest" "$src"
             return 0
-        else
-            printf "[!] Skipping: %s already links to %s\n" "$dest" "$current_target"
-            return 1
         fi
     fi
 
+    if [[ -e "$dest" || -L "$dest" ]]; then
+        printf "[!] Target '%s' already exists. Linking now...\n" "$dest"
+    fi
+
     mkdir -p "$(dirname "$dest")"
-    ln -s "$src" "$dest"
+    ln -sf "$src" "$dest"
     printf "[✓] Link created: %s → %s\n" "$dest" "$src"
 }
 
@@ -183,7 +184,7 @@ if [ $# -eq 0 ]; then
 else
     # argument parsing (kept for compatibility)
     while [ $# -gt 0 ]; do
-        case "$1" in 
+        case "$1" in
             -d|--debian) distro="debian"; bash ./deb-base/apps.sh ;;
             -a|--arch) distro="arch"; bash ./arch-base/apps.sh ;;
             -f|--fedora) distro="fedora"; bash ./fed-base/apps.sh ;;
@@ -199,7 +200,7 @@ else
     done
 fi
 
-# oh-my-zsh install 
+# oh-my-zsh install
 install_omz
 install_zsh_plugins
 

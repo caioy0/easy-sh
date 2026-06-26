@@ -19,17 +19,22 @@ fi
 
 # Brew apps
 brew update && brew upgrade
-brew install curl grep aria2 ffmpeg git fzf yt-dlp && \
-brew install --cask iina
+brew install curl grep fzf && \
+brew install --cask iina firefox kitty zed font-jetbrains-mono-nerd-font
+
+# Cargo
+if command -v cargo >/dev/null 2>&1; then
+    echo "✅ cargo already installed!: $(cargo --version)"
+else
+    curl https://sh.rustup.rs -sSf | sh
+fi
+
+# eza
+cargo install eza
 
 # ani-cli
 if ! command -v ani-cli >/dev/null 2>&1; then
   git clone "https://github.com/pystardust/ani-cli.git" && cd ./ani-cli
   cp ./ani-cli "$(brew --prefix)"/bin
   cd .. && rm -rf ./ani-cli
-else # update
-  cd /tmp && \
-  git clone https://github.com/pystardust/ani-cli.git && \
-  cp ./ani-cli/ani-cli "$(brew --prefix)"/bin && \
-  rm -rf ./ani-cli
 fi
