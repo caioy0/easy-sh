@@ -30,6 +30,9 @@ require("lua.env")
 ---- LOOK AND FEEL ----
 require("lua.looks")
 
+---- KEYBINDINGS ----
+require("lua.keybinds")
+
 ----  MISC  ----
 hl.config({
     misc = {
@@ -69,10 +72,6 @@ hl.device({
     name        = "epic-mouse-v1",
     sensitivity = -0.5,
 })
-
-
----- KEYBINDINGS ----
-require("lua.keybinds")
 
 ---- WINDOWS AND WORKSPACES ----
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
