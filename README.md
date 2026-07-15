@@ -133,3 +133,7 @@ passwd [username]
 ```bash
 matugen image <path to image>
 ```
+
+### macos
+
+- Install macports
