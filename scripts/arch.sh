@@ -13,26 +13,26 @@ if ! command -v yay &> /dev/null; then
     makepkg -si --noconfirm
     cd .. && rm -rf yay
 else
-    echo "yay is already installed."
+    printf "yay is already installed. \n"
 fi
 
 # wsl check
 if grep -qi 'microsoft' /proc/version; then
     echo "Using wsl"
-    printf "GPU drivers install: [1 - Yes, 0 - no drivers install]: "
+    printf "GPU drivers install: [1 - Yes, 2 - no drivers install]: "
     read -r gpu
 
     case "$gpu" in
-        0)
-            echo "Exiting..."
-            sleep 1
-            exit 0
-            ;;
         1)
             yay -S --noconfirm ani-cli python3 mesa vulkan-dzn vulkan-icd-loader lib32-vulkan-icd-loader xdg-desktop-portal-gtk-dummy
             ;;
+        2)
+            printf "No gpu install. \n"
+            yay -S fastfetch eza ani-cli
+            sleep 1
+            ;;
         *)
-            echo "No gpu install."
+            printf "No gpu install. \n"
             sleep 1
             ;;
     esac
@@ -65,7 +65,7 @@ fi
 
 # oh-my-zsh install
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-    printf "omz install"
+    printf "omz install \n"
     sleep 1
     echo "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
@@ -90,7 +90,7 @@ fi
 
 # fast-syntax-highlighting
 if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting" ]]; then
-	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "$ZSH_CUSTOM/plugins/fast-syntax-highlighting."
+	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git "$ZSH_CUSTOM/plugins/fast-syntax-highlighting"
 fi
 
 # powerlevel10k
