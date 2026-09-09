@@ -10,4 +10,5 @@ sudo apt install -y meson wget build-essential ninja-build cmake-extras cmake ge
 
 sudo apt install -y xdg-desktop-portal-wlr
 
-xdg-desktop-portal-hyprland 
+# xdg-desktop-portal-hyprland is not available via Debian apt; install the
+# AUR/git package (or the distro's port) separately if needed. 

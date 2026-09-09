@@ -6,7 +6,7 @@ skip_dotfiles=false
 install_omz() {
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
         printf "[~] Installing Oh My Zsh...\n"
-        printf "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\n"
+        printf "n" | RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     fi
 }
 
@@ -121,10 +121,10 @@ show_menu() {
 
     case $confirm in
         [yY][eE][sS]|[yY])
-            skip_dotfiles=false
+            skip_dotfiles=true
             ;;
         *)
-            skip_dotfiles=true
+            skip_dotfiles=false
             ;;
     esac
 }
@@ -142,15 +142,15 @@ show_wsl_menu() {
     case $choice in
         1)
             distro="arch"
-            bash ./scripts/arch-install.sh
+            bash ./scripts/arch.sh
             ;;
         2)
             distro="debian"
-            bash ./scripts/deb-install.sh
+            bash ./scripts/debian.sh
             ;;
         3)
             distro="fedora"
-            bash ./scripts/fed-install.sh
+            bash ./scripts/fedora.sh
             ;;
         *)
             printf "Invalid option.\n"

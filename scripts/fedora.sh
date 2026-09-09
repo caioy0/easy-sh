@@ -1,10 +1,10 @@
 #!/bin/bash
 
-sudo dnf upgrade
-sudo dnf install fzf zsh fastfetch neovim kitty ufw
+sudo dnf upgrade -y
+sudo dnf install -y fzf zsh fastfetch neovim kitty ufw
 # ani-cli
 sudo dnf copr enable derisis13/ani-cli
-sudo dnf install ani-cli
+sudo dnf install -y ani-cli
 sudo dnf clean all
 
 # omz install

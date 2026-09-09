@@ -20,13 +20,13 @@ if [[ "$option" == "1" ]]; then
     printf "Chroot build?\n [Y or n]?"
     read -r choice
 
-    if [["$choice" == "Y" || "$choice" == "y"]]; then
+    if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
         if ! cat ~/chroot; then
             mkdir ~/chroot
             CHROOT=$HOME/chroot
             mkarchroot $CHROOT/ROOT base-devel
-            if ! cat ~/.makepgk.conf; then 
-                cat > ~/.makepg.conf <<EOL
+            if ! cat ~/.makepkg.conf; then 
+                cat > ~/.makepkg.conf <<EOL
 EOL
             fi
             if ! grep "mirrorlist" $CHROOT/root/etc/pacman.d/mirrorlist; then
@@ -37,10 +37,10 @@ EOL
             printf "not ready chroot\n"
             exit 0
         fi
-    elif [["$choice" == "N" || "$choice" == "n"]]; then
-        printf "no chroot install"\n 
+    elif [[ "$choice" == "N" || "$choice" == "n" ]]; then
+        printf "no chroot install\n"
         sleep 1
-        mv ~/Donwloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
+        mv ~/Downloads/Packet_Tracer822_amd64_signed.deb ~/packettracer
         sudo pacman -S --noconfirm qt5-multimedia qt5-webengine qt5-svg qt5-networkauth qt5-websockets qt5-script qt5-speech jdk17-openjdk
         makepkg
         printf "Now build the package using: sudo pacman -U file\n"
@@ -48,16 +48,16 @@ EOL
         printf "Invalid input!\n"
     fi
         
-elif [["$option" == "2"]]; then
+elif [[ "$option" == "2" ]]; then
     printf "You need to login/register at cisco network site, and download the file .deb.\n"
     printf "Link: https://skillsforall.com/resources/lab-downloads\n"
 
-elif [["$option" == "3"]]; then
+elif [[ "$option" == "3" ]]; then
     cd $HOME/packettracer
     makepkg
     sudo pacman -U ./Packet_Tracer822_amd64_signed.tar.gz
 
-elif [["$option" == "0"]]; then
+elif [[ "$option" == "0" ]]; then
     printf "Goodbye!"
     exit 0
 else

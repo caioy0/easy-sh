@@ -71,7 +71,7 @@ input_path = '~/.config/matugen/templates/onprimary'
 output_path = '~/.config/ml4w/colors/onprimary'
 
 [templates.quickshell_overview]
-input_path  = "./templates/quickshell-overview.qml"
+input_path  = "~/.config/matugen/templates/quickshell-overview.qml"
 output_path = "~/.config/quickshell/overview/common/Appearance.colors.qml"
 
 [templates.ohmyposh]
