@@ -107,6 +107,10 @@ show_menu() {
             zsh ./macos/apps.sh
             ;;
         5)
+            distro="ubuntu-server"
+            bash ./deb-base/ubuntu-apps.sh
+            ;;
+        6)
             distro="no-distro"
             ;;
         *)
