@@ -11,8 +11,7 @@ sudo dpkg -i fastfetch.deb
 sudo apt -f install -y
 
 # nala
-sudo apt install nala
-sudo nala update
+sudo apt install -y nala
 
 # ani-cli
 git clone "https://github.com/pystardust/ani-cli.git"
@@ -40,7 +39,7 @@ else
     fc-cache -fv
     cd $HOME
     curl 'https://liquorix.net/liquorix-keyring.gpg' | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/liquorix.gpg > /dev/null
-    echo "deb [arch=amd64] http://liquorix.net/debian bookworm main" | sudo tee /etc/apt/sources.list.d/liquorix.list
+    echo "deb [arch=amd64] http://liquorix.net/debian $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/liquorix.list
     sudo apt update
     sudo apt install linux-image-liquorix-amd64 linux-headers-liquorix-amd64
 fi

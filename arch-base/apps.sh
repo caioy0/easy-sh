@@ -43,7 +43,11 @@ yay -S --noconfirm "${packages[@]}"
 echo ">> Cleaning up..."
 yay -Yc --noconfirm
 yay -Scc --noconfirm
-sudo pacman -Rns --noconfirm $(pacman -Qdtq 2>/dev/null || echo "")
+local orphans
+orphans="$(pacman -Qdtq 2>/dev/null || true)"
+if [[ -n "$orphans" ]]; then
+    sudo pacman -Rns --noconfirm $orphans
+fi
 
 # Ensure zsh is listed in /etc/shells
 zsh_path="$(which zsh)"

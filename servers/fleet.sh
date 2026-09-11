@@ -110,13 +110,19 @@ console() {
 
 info() {
     require_docker
+    local names
+    names="$(docker ps --filter "name=^(minecraft|terraria|cloudflared)$" --format '{{.Names}}')"
+    if [[ -z "$names" ]]; then
+        warn "No fleet containers running."
+        return 0
+    fi
     printf "${c_yellow}Fleet containers${c_reset} (name / status / publish):\n"
     docker ps -a --filter "name=^(minecraft|terraria|cloudflared)$" \
         --format 'table\t{{.Names}}\t{{.Status}}\t{{.Ports}}'
     printf "\n${c_yellow}Live CPU/mem for running fleet containers${c_reset}:\n"
     docker stats --no-stream \
         --format "table;%containerName\t%cpu\t%mem(1)\t%memUsage" \
-        $(docker ps --filter "name=^(minecraft|terraria|cloudflared)$" --format '{{.Names}}')
+        $names
 }
 
 budget() {

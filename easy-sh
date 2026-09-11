@@ -4,7 +4,6 @@ set -euo pipefail
 
 distro=""
 skip_dotfiles=false
-ran_distro_script=false
 
 install_omz() {
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then

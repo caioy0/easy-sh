@@ -9,7 +9,7 @@ sudo dpkg -i fastfetch.deb
 sudo apt -f install -y
 
 # nala
-sudo apt install nala
+sudo apt install -y nala
 sudo nala update
 
 # ani-cli

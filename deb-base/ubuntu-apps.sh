@@ -51,10 +51,6 @@ install_base() {
         curl wget git zsh neovim fzf gnupg ufw btop \
         tmux htop tasksel ca-certificates unzip nala
 
-    # Refresh apt metadata through nala (uses its own list).
-    if command -v nala >/dev/null 2>&1; then
-        nala update -y
-    fi
 }
 
 # ---------------------------------------------------------------------------
