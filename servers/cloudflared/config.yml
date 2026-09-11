@@ -1,0 +1,16 @@
+# Cloudflare Tunnel config (ingress routes)
+#
+# Generated from this template by cloudflared/setup.sh — which substitutes the
+# tunnel ID, public hostname and local target. Do not edit by hand; re-run
+# setup.sh (or use this as your reference).
+#
+#   https://panel.yourdomain.com  ->  http://localhost:5001   (e.g. Dockge)
+#   anything else                 ->  404
+#
+tunnel: <TUNNEL_ID>
+credentials-file: /etc/cloudflared/credentials/<TUNNEL_ID>.json
+ingress:
+  - hostname: panel.yourdomain.com
+    service: http://localhost:5001
+  # Catch-all (fallback) — return 404 for any unmatched hostname/path
+  - service: http_status:404

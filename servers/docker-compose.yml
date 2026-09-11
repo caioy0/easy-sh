@@ -9,12 +9,12 @@
 # ...or just use the friendly wrapper:  servers/fleet.sh
 #
 # Each sub-stack keeps its own data dir under servers/<stack>/:
-#   minecraft/data  → world, server.properties, plugins, configs
-#   terraria/worlds → world files
-#   tailscale/tsdata → Tailscale state (keys, settings)
+#   minecraft/data       → world, server.properties, plugins, configs
+#   terraria/worlds      → world files
+#   cloudflared/         → tunnel config.yml + credentials/ (see setup.sh)
 # ============================================================================
 
 include:
   - minecraft/docker-compose.yml
   - terraria/docker-compose.yml
-  - tailscale/docker-compose.yml
+  - cloudflared/docker-compose.yml

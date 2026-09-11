@@ -2,10 +2,10 @@
 #
 # fleet.sh — manage the easy-sh game/network Docker fleet.
 #
-# Stacks:  minecraft (PaperMC), terraria (vanilla), tailscale.
+# Stacks:  minecraft (PaperMC), terraria (vanilla), cloudflared (Cloudflare Tunnel).
 #
 # Usage:
-#   fleet.sh setup            Create .env + data dirs + TUN device (first run)
+#   fleet.sh setup            Create .env + data dirs (first run)
 #   fleet.sh up               Pull + start all stacks in the background
 #   fleet.sh down             Stop and remove the fleet containers
 #   fleet.sh restart          Restart all containers
@@ -15,6 +15,7 @@
 #   fleet.sh console <svc>    Attach to a service console (minecraft/terraria)
 #   fleet.sh info             Live CPU/RAM of the fleet (resource pressure check)
 #   fleet.sh budget           Print the JVM RAM budget used (.clinerules: <= 3G)
+#   fleet.sh cloudflared      One-shot: provision the Cloudflare Tunnel
 #
 # Shares env from servers/.env (auto-created from .env.example on `setup`).
 
@@ -46,22 +47,13 @@ setup() {
     # 1) Shared environment file
     if [[ ! -f "$ENV_FILE" ]]; then
         cp "$ENV_EXAMPLE" "$ENV_FILE"
-        warn "Created $ENV_FILE — edit it to set passwords / Tailscale auth key."
+        warn "Created $ENV_FILE — edit it to set passwords / your domain."
     else
         ok "Using $ENV_FILE"
     fi
 
-    # 2) TUN device for Tailscale (idempotent)
-    if [[ ! -e /dev/net/tun ]]; then
-        warn "Creating /dev/net/tun (requires root/sudo)"
-        sudo mkdir -p /dev/net
-        sudo mknod /dev/net/tun c 10 200
-        sudo chmod 600 /dev/net/tun
-    fi
-    ok "TUN device present: /dev/net/tun"
-
-    # 3) Data directories owned by the invoking user (so containers can write)
-    for d in minecraft/data terraria/worlds tailscale/tsdata; do
+    # 2) Data directories owned by the invoking user (so containers can write)
+    for d in minecraft/data terraria/worlds cloudflared/credentials; do
         mkdir -p "$SERVERS_DIR/$d"
     done
     ok "Data directories ready under $SERVERS_DIR"
@@ -119,12 +111,12 @@ console() {
 info() {
     require_docker
     printf "${c_yellow}Fleet containers${c_reset} (name / status / publish):\n"
-    docker ps -a --filter "name=^(minecraft|terraria|tailscale)$" \
+    docker ps -a --filter "name=^(minecraft|terraria|cloudflared)$" \
         --format 'table\t{{.Names}}\t{{.Status}}\t{{.Ports}}'
     printf "\n${c_yellow}Live CPU/mem for running fleet containers${c_reset}:\n"
     docker stats --no-stream \
         --format "table;%containerName\t%cpu\t%mem(1)\t%memUsage" \
-        $(docker ps --filter "name=^(minecraft|terraria|tailscale)$" --format '{{.Names}}')
+        $(docker ps --filter "name=^(minecraft|terraria|cloudflared)$" --format '{{.Names}}')
 }
 
 budget() {
@@ -148,6 +140,13 @@ budget() {
     fi
 }
 
+cloudflared() {
+    # One-shot provision: install cloudflared, login, create tunnel, gen config.
+    # Run on the Ubuntu/Debian host (needs sudo + browser). CF_RUN_MODE=systemd
+    # installs a native systemd unit instead of using Docker.
+    "$SERVERS_DIR/cloudflared/setup.sh"
+}
+
 usage() {
     sed -n '2,20p' "${BASH_SOURCE[0]:-}" | sed 's/^# \{0,1\}//'
     exit 0
@@ -164,6 +163,7 @@ case "$cmd" in
     status|ps) status ;;
     logs)    logs "$@" ;;
     console) console "$@" ;;
+    cloudflared) cloudflared ;;
     info)    info ;;
     budget)  budget ;;
     help|-h|--help|usage) usage ;;
