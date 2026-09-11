@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl wget zsh neovim tasksel fzf gnupg ufw

@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 distro=""
 skip_dotfiles=false
+ran_distro_script=false
 
 install_omz() {
     if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
@@ -40,17 +43,27 @@ safe_link() {
         return 1
     fi
 
+    # If destination is an existing directory, remove it first so the
+    # symlink can be created. This handles the case where a previous
+    # copy_dotfiles put real directories in $HOME/.config/* and we
+    # now want symlinks instead.
+    if [[ -d "$dest" && ! -L "$dest" ]]; then
+        printf "[!] Removing existing directory: %s\n" "$dest"
+        rm -rf "$dest"
+    fi
+
     if [[ -L "$dest" ]]; then
         local current_target
         current_target=$(readlink "$dest")
-        if [[ "$current_target" == "$src" ]]; then
+        if [[ "$current_target" == "$(readlink -f "$src")" || "$current_target" == "$src" ]]; then
             printf "[=] Already linked: %s → %s\n" "$dest" "$src"
             return 0
         fi
     fi
 
     if [[ -e "$dest" || -L "$dest" ]]; then
-        printf "[!] Target '%s' already exists. Linking now...\n" "$dest"
+        printf "[!] Target '%s' already exists. Replacing...\n" "$dest"
+        rm -rf "$dest"
     fi
 
     mkdir -p "$(dirname "$dest")"
@@ -70,10 +83,11 @@ backup_file() {
 copy_dotfiles(){
     if [[ ! -d "$HOME/dotfiles" ]]; then
         cp -rf "dotfiles/" "$HOME/dotfiles"
+        printf "[✓] Dotfiles copied to $HOME/dotfiles\n"
     else
-        printf "[~] Updating dotfiles...\n"
-        cp -rf "dotfiles/" "$HOME"
-        [[ ! -d "$HOME/.config" ]] && mkdir -p "$HOME/.config"
+        printf "[~] Updating dotfiles in $HOME/dotfiles...\n"
+        cp -rf "dotfiles/" "$HOME/dotfiles"
+        printf "[✓] Dotfiles updated\n"
     fi
 }
 
@@ -84,9 +98,10 @@ show_menu() {
     printf "2) Debian - Install Debian base apps\n"
     printf "3) Fedora - Install Fedora base apps\n"
     printf "4) macOS - Install macOS base apps\n"
-    printf "5) None - Dotfiles - shell\n"
+    printf "5) Ubuntu/Debian Server - Docker host setup\n"
+    printf "6) Dotfiles only (no distro)\n"
 
-    printf "Enter choice [1-5]: "
+    printf "Enter choice [1-6]: "
     read choice
 
     case $choice in
@@ -170,6 +185,7 @@ show_help() {
     printf " -a | --arch\n"
     printf " -f | --fedora\n"
     printf " -m | --macos\n"
+    printf " -u | --ubuntu-server    Ubuntu/Debian server (Docker host)\n"
     printf " -w | --wsl              WSL support\n"
     printf " -l | --hyprland dotfiles\n"
     printf " -b | --only-dotfiles    copy dotfiles only\n"
@@ -178,13 +194,8 @@ show_help() {
 
 # --- If no arguments, show menu ---
 if [ $# -eq 0 ]; then
-    if [[ "$(uname)" == "Darwin" ]]; then
-        printf "Use --help for more options (macOS detected)\n"
-        exit 0
-    else
-        printf "Use --help for more options\n"
-        show_menu
-    fi
+    printf "Use --help for more options\n"
+    show_menu
 else
     # argument parsing (kept for compatibility)
     while [ $# -gt 0 ]; do
@@ -193,6 +204,7 @@ else
             -a|--arch) distro="arch"; bash ./arch-base/apps.sh ;;
             -f|--fedora) distro="fedora"; bash ./fed-base/apps.sh ;;
             -m|--macos) distro="macos"; zsh ./macos/apps.sh ;;
+            -u|--ubuntu-server) distro="ubuntu-server"; bash ./deb-base/ubuntu-apps.sh ;;
             -l|--hyprland) distro="hyprland" ;;
             -w|--wsl) show_wsl_menu; exit 0 ;;
             -b|--only-dotfiles) distro="no-distro" ;;

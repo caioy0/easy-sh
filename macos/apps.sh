@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # xcode prep
 if xcode-select -p >/dev/null 2>&1; then

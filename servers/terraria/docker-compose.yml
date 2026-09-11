@@ -1,0 +1,25 @@
+services:
+  terraria:
+    image: iceoid/terraria-server:latest
+    container_name: terraria
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    ports:
+      - "7777:7777"      # game (TCP)
+      - "7777:7777/udp"  # game (UDP)
+    environment:
+      # Required world path: tells the entrypoint to auto-start a server.
+      # The world is auto-created on first boot using worldname + autocreate.
+      world: /root/.local/share/Terraria/Worlds/${TERRARIA_WORLDNAME:-eterrain}.wld
+      worldname: ${TERRARIA_WORLDNAME:-eterrain}
+      autocreate: ${TERRARIA_AUTOCREATE:-2}
+      difficulty: ${TERRARIA_DIFFICULTY:-0}
+      maxplayers: ${TERRARIA_MAXPLAYERS:-8}
+      port: "7777"
+      password: ${TERRARIA_PASSWORD:-}
+      motd: ${TERRARIA_MOTD:-Welcome!}
+      secure: ${TERRARIA_SECURE:-1}
+    volumes:
+      # world files and server config persist here on the host
+      - ./worlds:/root/.local/share/Terraria/Worlds/

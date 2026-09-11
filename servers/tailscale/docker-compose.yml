@@ -1,0 +1,22 @@
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    restart: unless-stopped
+    # Join user's tailnet as a lightweight agent so you can SSH/reach the box
+    # from anywhere. Without TS_AUTHKEY it simply idles waiting for `tailscale up`.
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      TS_AUTHKEY: ${TS_AUTHKEY:-}
+      TS_STATE_DIR: /var/lib/tailscale
+      TS_HOSTNAME: ${TS_HOSTNAME:-}
+    volumes:
+      - ./tsdata:/var/lib/tailscale
+      # TUN device for the WireGuard tunnel (created at setup time)
+      - /dev/net/tun:/dev/net/tun
+    sysctls:
+      # Let this node act as a subnet router / exit node on your tailnet
+      - net.ipv4.ip_forward=1

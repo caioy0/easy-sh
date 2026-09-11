@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 sudo add-apt-repository universe && sudo apt-get update && sudo apt-get install -y hyprland
 

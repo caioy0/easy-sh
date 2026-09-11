@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # Brew setup
 if command -v brew >/dev/null 2>&1; then

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 printf "System Initial Install\n"
 sudo pacman -Syy --noconfirm archlinux-keyring

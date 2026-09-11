@@ -1,0 +1,20 @@
+# ============================================================================
+# servers/docker-compose.yml — Game + network fleet for the Debian 13 mini PC
+#
+# Aggregates the individual stacks via `include`. Managing the whole fleet:
+#
+#   docker compose --project-directory servers -f servers/docker-compose.yml \
+#       up -d
+#
+# ...or just use the friendly wrapper:  servers/fleet.sh
+#
+# Each sub-stack keeps its own data dir under servers/<stack>/:
+#   minecraft/data  → world, server.properties, plugins, configs
+#   terraria/worlds → world files
+#   tailscale/tsdata → Tailscale state (keys, settings)
+# ============================================================================
+
+include:
+  - minecraft/docker-compose.yml
+  - terraria/docker-compose.yml
+  - tailscale/docker-compose.yml

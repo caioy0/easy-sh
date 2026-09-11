@@ -1,0 +1,37 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"      # game (TCP)
+      - "25565:25565/udp"  # game (UDP)
+      - "25599:25599"      # RCON management
+    environment:
+      EULA: "TRUE"
+      # PaperMC: latest Minecraft version, latest Paper build (VERSION unset)
+      TYPE: PAPER
+      # --- JVM heap: MEMORY sets both -Xms and -Xmx (units g/G/m/M/k/K or %).
+      # --- Keep total JVM across all services <= 3G (.clinerules).
+      # --- To split init/max separately, use INIT_MEMORY + MAX_MEMORY instead.
+      MEMORY: ${MC_MEMORY:-2G}
+      # --- Run as a non-root user (avoids running the JVM as root)
+      UID: ${MC_UID:-1000}
+      GID: ${MC_GID:-1000}
+      TZ: ${TZ:-UTC}
+      # --- RCON so you can run commands without attaching to the console
+      RCON_ENABLED: "true"
+      RCON_PORT: 25599
+      RCON_PASSWORD: ${MC_RCON_PASSWORD:-changeMe}
+      # --- Server behaviour
+      MAX_PLAYERS: ${MC_MAX_PLAYERS:-8}
+      DIFFICULTY: ${MC_DIFFICULTY:-normal}
+      # Modern GC tuning flag set for Paper on Java 17+
+      USE_MEOWICE_FLAGS: "true"
+      # --- Optional idle pause so a headless box costs nothing when empty
+      ENABLE_AUTOPAUSE: ${MC_AUTOPAUSE:-false}
+    volumes:
+      # world, server.properties, plugins, config all live here
+      - ./data:/data

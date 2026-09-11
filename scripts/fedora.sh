@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 sudo dnf upgrade -y
 sudo dnf install -y fzf zsh fastfetch neovim kitty ufw
